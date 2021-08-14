@@ -57,14 +57,15 @@ DB_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
 ```
 
 **Keywords:**
-> User: root\
-Password: mypassword\
-Host: localhost\
-Post: 5432\
-Database name: mydb\
-Schema name: public
 
-***Change the TEST DB URL also.**
+> User: root\
+> Password: mypassword\
+> Host: localhost\
+> Post: 5432\
+> Database name: mydb\
+> Schema name: public
+
+**\*Change the TEST DB URL also.**
 
 ### 3. Create and seed the database
 

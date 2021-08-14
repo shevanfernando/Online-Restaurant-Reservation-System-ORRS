@@ -15,7 +15,7 @@ jobs:
     steps:
       - run: echo "👋🏼 Hi! You'r in restaurant-reservation-client directory."
         working-directory: ./
-      
+
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
         working-directory: ./
 
@@ -32,14 +32,17 @@ jobs:
         working-directory: ./
 
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-            
+
       - name: Run tests using Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Formating code
+        run: npm run format
 
       - name: Lint
         run: npm run lint
@@ -47,11 +50,8 @@ jobs:
       - name: Run tests
         run: npm run test-head
 
-      - name: Formating code
-        run: npm run format
-
       - if: ${{ success() }}
         run: echo "✔️ This job's is successfully completed."
-      
+
       - if: ${{ cancelled() || failure() }}
         run: echo "❌ This job's status is ${{ job.status }}."
