@@ -5,18 +5,14 @@
  * @file    HttpError
  */
 export class HttpError extends Error {
-  public status: number;
-  public message: string;
-  public type?: string;
+  private _status: number;
+  private _message: string;
+  private readonly _type?: string;
 
-  constructor(status: number, message: string, type?: string) {
+  constructor(status: number, message: string, type: string) {
     super(message);
-    this.status = status;
-    this.message = message;
-    if (this.type !== undefined) this.type = type;
-  }
-
-  public toJSON(): { status: number; message: string; type: string | undefined } {
-    return { status: this.status, message: this.message, type: this.type };
+    this._status = status;
+    this._message = message;
+    if (this._type) this._type = type;
   }
 }
