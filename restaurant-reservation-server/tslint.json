@@ -1,6 +1,6 @@
 {
   "extends": [
-    "tslint:recommended",
+    "tslint:all",
     "tslint-config-airbnb-base",
     "tslint-config-prettier",
     "tslint-plugin-prettier"
@@ -9,8 +9,7 @@
     // Formatting rules
     "prettier": true,
     // Don't want these
-    "no-async-without-await": false,
-    "no-duplicate-imports": true,
+    "no-default-export": false,
     "cyclomatic-complexity": false,
     "increment-decrement": false,
     "newline-before-return": false,
@@ -18,8 +17,6 @@
     "no-parameter-reassignment": false,
     "no-implicit-dependencies": false,
     "no-unused-variable": false,
-    "no-default-import": false,
-    "no-default-export": false,
     "typedef": false,
     "unnecessary-else": false,
     // TODO: Enable stricter options for these
@@ -38,7 +35,6 @@
     // TODO: Enable these
     "completed-docs": false,
     "no-any": false,
-    "no-submodule-imports": false,
     "no-magic-numbers": false,
     "no-non-null-assertion": false,
     "no-null-keyword": false,
@@ -69,13 +65,16 @@
       ]
     },
     "interface-name": false,
+    "file-header": [
+      true,
+      "*\n@created \\s \n@project \\s\n@author \\s\n@file \\s\n"
+    ],
     "max-classes-per-file": false,
     "member-ordering": {
       "options": {
         "order": "statics-first"
       }
     },
-    "no-string-literal": false,
     "no-console": {
       "options": [
         "log"
@@ -99,9 +98,12 @@
     "linebreak-style": false,
     "object-literal-sort-keys": false,
     "file-name-casing": [
-      false,
+      true,
       {
-        ".ts": "pascal-case"
+        ".ts": [
+          "pascal-case",
+          "camel-case"
+        ]
       }
     ]
   }
