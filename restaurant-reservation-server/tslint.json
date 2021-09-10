@@ -1,9 +1,15 @@
 {
-  "extends": ["tslint:all", "tslint-config-airbnb-base", "tslint-config-prettier", "tslint-plugin-prettier"],
+  "extends": [
+    "tslint:all",
+    "tslint-config-airbnb-base",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
   "rules": {
     // Formatting rules
     "prettier": true,
     // Don't want these
+    "no-default-export": false,
     "cyclomatic-complexity": false,
     "increment-decrement": false,
     "newline-before-return": false,
@@ -15,11 +21,16 @@
     "unnecessary-else": false,
     // TODO: Enable stricter options for these
     "comment-format": {
-      "options": ["check-space"]
+      "options": [
+        "check-space"
+      ]
     },
     "member-access": true,
     "only-arrow-functions": {
-      "options": ["allow-declarations", "allow-named-functions"]
+      "options": [
+        "allow-declarations",
+        "allow-named-functions"
+      ]
     },
     // TODO: Enable these
     "completed-docs": false,
@@ -36,17 +47,28 @@
     "strict-comparisons": false,
     "strict-type-predicates": false,
     "triple-equals": {
-      "options": ["allow-undefined-check"]
+      "options": [
+        "allow-undefined-check"
+      ]
     },
     // Misc
     "ban": {
       "options": [
-        ["describe", "only"],
-        ["it", "only"]
+        [
+          "describe",
+          "only"
+        ],
+        [
+          "it",
+          "only"
+        ]
       ]
     },
     "interface-name": false,
-    "file-header": [true, "*\n@created \\s \n@project \\s\n@author \\s\n@file \\s\n"],
+    "file-header": [
+      true,
+      "*\n@created \\s \n@project \\s\n@author \\s\n@file \\s\n"
+    ],
     "max-classes-per-file": false,
     "member-ordering": {
       "options": {
@@ -54,22 +76,34 @@
       }
     },
     "no-console": {
-      "options": ["log"]
+      "options": [
+        "log"
+      ]
     },
     "no-switch-case-fall-through": true,
     "strict-boolean-expressions": {
-      "options": ["allow-boolean-or-undefined"]
+      "options": [
+        "allow-boolean-or-undefined"
+      ]
     },
     "switch-default": false,
     "variable-name": {
-      "options": ["ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
     },
     "linebreak-style": false,
     "object-literal-sort-keys": false,
     "file-name-casing": [
       true,
       {
-        ".ts": ["pascal-case", "camel-case"]
+        ".ts": [
+          "pascal-case",
+          "camel-case"
+        ]
       }
     ]
   }
