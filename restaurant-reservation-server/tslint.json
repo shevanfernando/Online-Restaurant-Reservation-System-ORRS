@@ -35,6 +35,7 @@
     // TODO: Enable these
     "completed-docs": false,
     "no-any": false,
+    "no-submodule-imports": false,
     "no-magic-numbers": false,
     "no-non-null-assertion": false,
     "no-null-keyword": false,
