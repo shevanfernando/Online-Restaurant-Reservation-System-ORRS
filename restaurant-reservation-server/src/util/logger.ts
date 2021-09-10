@@ -5,9 +5,8 @@
  * @file    logger.ts
  */
 
+import { ENV } from '@src/config';
 import winston from 'winston';
-
-import { ENV } from '../config';
 
 const levels = {
   error: 0,
@@ -32,7 +31,7 @@ winston.addColors(colors);
 const format = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
   winston.format.colorize({ all: true }),
-  winston.format.printf((info) => `[${info.timestamp} ${info.level}] ${info.message}`)
+  winston.format.printf((info) => `[${info.timestamp} ${info.level}] ${info.message}`),
 );
 
 const transports = [
@@ -44,4 +43,4 @@ const transports = [
   new winston.transports.File({ filename: 'logs/all.log' }),
 ];
 
-export const logger = winston.createLogger({ level: level(), levels, format, transports });
+const logger = winston.createLogger({ level: level(), levels, format, transports });
