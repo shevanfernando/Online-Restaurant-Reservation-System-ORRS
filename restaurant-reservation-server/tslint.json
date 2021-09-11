@@ -9,6 +9,7 @@
     // Formatting rules
     "prettier": true,
     // Don't want these
+    "no-async-without-await": false,
     "no-duplicate-imports": true,
     "cyclomatic-complexity": false,
     "increment-decrement": false,
@@ -66,10 +67,6 @@
       ]
     },
     "interface-name": false,
-    "file-header": [
-      true,
-      "*\n@created \\s \n@project \\s\n@author \\s\n@file \\s\n"
-    ],
     "max-classes-per-file": false,
     "member-ordering": {
       "options": {
