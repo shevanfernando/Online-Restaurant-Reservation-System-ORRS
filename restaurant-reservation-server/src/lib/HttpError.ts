@@ -5,14 +5,14 @@
  * @file    HttpError
  */
 export class HttpError extends Error {
-  private _status: number;
-  private _message: string;
-  private readonly _type?: string;
+  public status: number;
+  public message: string;
+  public type?: string;
 
   constructor(status: number, message: string, type: string) {
     super(message);
-    this._status = status;
-    this._message = message;
-    if (this._type) this._type = type;
+    this.status = status;
+    this.message = message;
+    if (this.type) this.type = type;
   }
 }
