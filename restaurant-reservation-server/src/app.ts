@@ -8,9 +8,9 @@
 import { ENV } from '@src/config';
 import { HttpError } from '@src/lib/HttpError';
 import { httpLogger } from '@src/middlewares/http-logger';
-import router from '@src/router';
+import { router } from '@src/router';
 import { logger } from '@src/util/logger';
-import express, { json, Request, Response } from 'express';
+import express, { json, NextFunction, Response } from 'express';
 
 export const app = express();
 
@@ -22,9 +22,9 @@ app.use(httpLogger);
 app.use(router);
 
 // error handling
-app.use((err: any, req: Request, res: Response) => {
+app.use((err, req, res, nxt) => {
   if (err instanceof HttpError) {
-    res.status(err.status).send(err.toJSON());
+    res.status(err.status).send(err);
   } else {
     logger.error(err);
     res.status(500).send(ENV === 'development' ? err : 'Internal Server Error');
