@@ -10,10 +10,11 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prisma:format": "npx prisma format",
-    "prisma:migration": "npx prisma migrate dev --name init",
+    "prisma:reset": "npx prisma migrate reset --force --skip-seed",
+    "prisma:migration": "npx prisma migrate dev --create-only --name init",
     "prisma:seed": "npx prisma db seed --preview-feature",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "format": "prettier --write \"**/*.+(ts|js|jsx|json|md)\"",
+    "format": "prettier --write \"src/**/*.+(ts|js|jsx|json|md)\"",
     "lint": "tslint 'src/**/*.ts'"
   },
   "keywords": [
