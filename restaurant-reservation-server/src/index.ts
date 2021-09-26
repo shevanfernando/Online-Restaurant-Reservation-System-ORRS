@@ -8,12 +8,12 @@
 import { app } from '@src/app';
 import { logger } from '@src/util/logger';
 
-import { PORT } from './config';
+import { APP_URL, PORT } from './config';
 
 const startServer = async () => {
   // start listening
   app.listen(PORT, async () => {
-    logger.info(`app started on port ${PORT}`);
+    logger.info(`app started on port ${APP_URL}:${PORT}/`);
   });
 };
 

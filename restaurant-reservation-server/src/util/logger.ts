@@ -5,8 +5,9 @@
  * @file    logger.ts
  */
 
-import { ENV } from '@src/config';
 import winston from 'winston';
+
+import { ENV } from '../config';
 
 const levels = {
   error: 0,
