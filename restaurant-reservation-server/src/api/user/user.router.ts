@@ -5,17 +5,12 @@
  * @file    user.router.ts
  */
 
-import { UserService } from '@src/api/user/UserService';
 import { NextFunction, Request, Response, Router } from 'express';
 
 const router = Router();
-const user = new UserService();
 
-router.post('/login', async (req: Request, res: Response, nxt: NextFunction) => {
-  await user
-    .login(req.body)
-    .then((result) => res.send(result))
-    .catch(nxt);
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  res.send('<h1>This is user module.</h1>');
 });
 
 export default router;
