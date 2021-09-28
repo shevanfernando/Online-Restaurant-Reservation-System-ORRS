@@ -75,6 +75,7 @@
         "order": "statics-first"
       }
     },
+    "no-string-literal": false,
     "no-console": {
       "options": [
         "log"

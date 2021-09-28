@@ -6,12 +6,19 @@
  */
 import { PrismaClient } from '@prisma/client';
 
+import { DATABASE_URL } from '../src/config';
 import { logger } from '../src/util/logger';
 import { PasswordCrypto } from '../src/util/PasswordCrypto';
 
 import { AdminData, CustomerDataList, StaffDataList } from './dummy-data/UserData';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: DATABASE_URL.toString(),
+    },
+  },
+});
 
 async function main() {
   logger.info('Start seeding ...');
