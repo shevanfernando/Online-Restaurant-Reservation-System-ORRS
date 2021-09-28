@@ -20,3 +20,5 @@ export const DATABASE_URL = () => {
   return process.env.DB_TEST_URL;
 };
 export const API_PREFIX = '/api';
+export const TOKEN_SECRET = process.env.TOKEN_SECRET || 'Pas@wOrd';
+export const TOKEN_EXPIRE_TIME = process.env.TOKEN_EXPIRE_TIME || '1h';
