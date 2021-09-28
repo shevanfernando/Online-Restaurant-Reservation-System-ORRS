@@ -9,10 +9,14 @@ export class HttpError extends Error {
   public message: string;
   public type?: string;
 
-  constructor(status: number, message: string, type: string) {
+  constructor(status: number, message: string, type?: string) {
     super(message);
     this.status = status;
     this.message = message;
     if (this.type) this.type = type;
+  }
+
+  public toJSON(): { status: number; message: string; type: string | undefined } {
+    return { status: this.status, message: this.message, type: this.type };
   }
 }

@@ -18,11 +18,11 @@ export class JWT {
         this._accessSecretToken,
         { expiresIn: TOKEN_EXPIRE_TIME },
         (err: Error | null, token: string | undefined) => {
-          if (err !== null) {
+          if (err) {
             return reject(ENV === 'development' ? err : 'Internal Server Error');
           }
           return resolve(token);
-        }
+        },
       );
     });
   }
@@ -30,7 +30,7 @@ export class JWT {
   public verifyToken(token: string): Promise<boolean> {
     return new Promise((resolve: string | any, reject: string | any) => {
       verify(token, this._accessSecretToken, (err: Error | null, payload: any) => {
-        if (err !== null) {
+        if (err) {
           const message =
             err.name === 'JsonWebTokenError' ? 'Unauthorized' : ENV === 'development' ? err : 'Internal Server Error';
           return reject(message);
