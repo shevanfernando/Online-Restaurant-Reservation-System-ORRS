@@ -46,14 +46,20 @@ jobs:
       - name: Prisma Format
         run: npm run prisma:format
 
+      - name: Prisma Migrate
+        run: npm run prisma:migration
+
+      - name: Prisma Seed
+        run: npm run prisma:seed
+
       - name: Code Check
         run: npm run prettier:check
 
       - name: Check project rules
         run: npm run lint
 
-#      - name: Run tests
-#        run: npm run test
+      - name: Run tests
+        run: npm run test
 
       - if: ${{ success() }}
         run: echo "✔️ This job's is successfully completed."
