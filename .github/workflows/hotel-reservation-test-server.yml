@@ -4,6 +4,8 @@ on: [ push, pull_request ]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DB_URL: postgresql://postgres:1234@localhost:5432/resturant_reservation?schema=hello-prisma
     defaults:
       run:
         working-directory: restaurant-reservation-server
