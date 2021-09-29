@@ -13,7 +13,7 @@ export class HttpError extends Error {
     super(message);
     this.status = status;
     this.message = message;
-    if (this.type) this.type = type;
+    if (this.type !== undefined) this.type = type;
   }
 
   public toJSON(): { status: number; message: string; type: string | undefined } {
