@@ -52,8 +52,8 @@ jobs:
       - name: Check project rules
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test
+#      - name: Run tests
+#        run: npm run test
 
       - if: ${{ success() }}
         run: echo "✔️ This job's is successfully completed."
