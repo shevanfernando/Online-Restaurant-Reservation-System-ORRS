@@ -4,8 +4,6 @@ on: [ push, pull_request ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DB_URL: postgresql://postgres:1234@localhost:5432/resturant_reservation?schema=hello-prisma
     defaults:
       run:
         working-directory: restaurant-reservation-server
@@ -47,12 +45,6 @@ jobs:
 
       - name: Prisma Format
         run: npm run prisma:format
-
-      - name: Prisma Migrate
-        run: npm run prisma:migration
-
-      - name: Prisma Seed
-        run: npm run prisma:seed
 
       - name: Code Check
         run: npm run prettier:check
