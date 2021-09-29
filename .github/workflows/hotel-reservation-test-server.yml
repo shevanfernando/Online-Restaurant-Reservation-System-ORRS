@@ -52,10 +52,10 @@ jobs:
       - name: Prisma Seed
         run: npm run prisma:seed
 
-      - name: Formating code
-        run: npm run format
+      - name: Code Check
+        run: npm run prettier:check
 
-      - name: Lint
+      - name: Check project rules
         run: npm run lint
 
       - name: Run tests

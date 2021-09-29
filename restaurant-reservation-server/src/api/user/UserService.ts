@@ -25,16 +25,16 @@ export class UserService {
 
   public async login(data: UserLoginDTO): Promise<string> {
     const user = await this.prisma.user.findUnique({ where: { username: data.username } });
-    if (user) {
+    if (user !== null) {
       const passwordIsCorrect = await this.passwordCrypto.compare(data.password, user.password);
-      if (passwordIsCorrect) {
+      if (passwordIsCorrect !== null) {
         switch (user.userType) {
           case UserType.CUSTOMER: {
             const tmp = await this.prisma.customer.findFirst({
               where: { userId: user.id },
               include: { Person: true },
             });
-            if (tmp) {
+            if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person.firstName} ${tmp.Person.lastName}`,
                 [`staffId`]: tmp.customerId,
@@ -45,7 +45,7 @@ export class UserService {
           }
           case UserType.STAFF: {
             const tmp = await this.prisma.staff.findFirst({ where: { userId: user.id }, include: { Person: true } });
-            if (tmp) {
+            if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person?.firstName} ${tmp.Person?.lastName}`,
                 [`staffId`]: tmp.staffId,
@@ -56,7 +56,7 @@ export class UserService {
           }
           case UserType.ADMIN: {
             const tmp = await this.prisma.admin.findFirst({ where: { userId: user.id }, include: { Person: true } });
-            if (tmp) {
+            if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person?.firstName} ${tmp.Person?.lastName}`,
                 [`staffId`]: tmp.adminId,

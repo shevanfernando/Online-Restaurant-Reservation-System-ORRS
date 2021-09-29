@@ -14,8 +14,9 @@
     "prisma:migration": "npx prisma migrate dev --create-only --name init",
     "prisma:seed": "npx prisma db seed --preview-feature",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "format": "prettier --write \"src/**/*.+(ts|js|jsx|json|md)\"",
-    "lint": "tslint 'src/**/*.ts'"
+    "prettier:check": "prettier --list-different \"src/**/*.ts\"",
+    "prettier:write": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint --project tsconfig.json"
   },
   "keywords": [
     "Nodejs",
