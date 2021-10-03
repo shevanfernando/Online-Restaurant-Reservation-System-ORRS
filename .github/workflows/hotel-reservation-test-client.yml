@@ -48,7 +48,7 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm run test-head
+        run: npm run test-headless
 
       - if: ${{ success() }}
         run: echo "✔️ This job's is successfully completed."
