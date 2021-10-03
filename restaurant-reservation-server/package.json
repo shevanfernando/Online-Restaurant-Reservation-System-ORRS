@@ -13,7 +13,6 @@
     "prisma:migration": "npx prisma migrate dev --name init",
     "prisma:seed": "npx prisma db seed --preview-feature",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "format": "prettier --write \"**/*.+(ts|js|jsx|json|md)\"",
     "lint": "tslint 'src/**/*.ts'"
   },
   "keywords": [
