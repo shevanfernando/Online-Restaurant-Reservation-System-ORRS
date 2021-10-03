@@ -44,7 +44,10 @@ export class UserService {
             break;
           }
           case UserType.STAFF: {
-            const tmp = await this.prisma.staff.findFirst({ where: { userId: user.id }, include: { Person: true } });
+            const tmp = await this.prisma.staff.findFirst({
+              where: { userId: user.id },
+              include: { Person: true },
+            });
             if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person?.firstName} ${tmp.Person?.lastName}`,
@@ -55,7 +58,10 @@ export class UserService {
             break;
           }
           case UserType.ADMIN: {
-            const tmp = await this.prisma.admin.findFirst({ where: { userId: user.id }, include: { Person: true } });
+            const tmp = await this.prisma.admin.findFirst({
+              where: { userId: user.id },
+              include: { Person: true },
+            });
             if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person?.firstName} ${tmp.Person?.lastName}`,
