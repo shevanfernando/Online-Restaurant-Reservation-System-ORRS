@@ -10,34 +10,22 @@ import { DATABASE_URL } from '../src/config';
 import { logger } from '../src/util/logger';
 import { PasswordCrypto } from '../src/util/PasswordCrypto';
 
-import { AdminData, CustomerDataList, StaffDataList } from './dummy-data/UserData';
+import { CustomerDataList, StaffDataList } from './dummy-data/UserData';
 
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: DATABASE_URL.toString(),
+      url: DATABASE_URL(),
     },
   },
 });
 
 async function main() {
-  logger.info('Start seeding ...');
-
-  // Add Admin
-  if (!(await prisma.person.findUnique({ where: { email: AdminData.Person.create.email } }))) {
-    await new PasswordCrypto()
-      .encrypt(AdminData.User.create.password)
-      .then((res: string) => (AdminData.User.create.password = res))
-      .catch((err) => logger.error(err));
-
-    const admin = await prisma.admin.create({ data: AdminData });
-
-    logger.info(`Created admin with id: ${admin.adminId}`);
-  }
+  logger.info('Start seeding...');
 
   // Add Staff Members
   for (const s of StaffDataList) {
-    if (!(await prisma.person.findUnique({ where: { email: s.Person.create.email } }))) {
+    if ((await prisma.person.findUnique({ where: { email: s.Person.create.email } })) === null) {
       await new PasswordCrypto()
         .encrypt(s.User.create.password)
         .then((res: string) => (s.User.create.password = res))
@@ -49,7 +37,7 @@ async function main() {
 
   // Add Customers
   for (const c of CustomerDataList) {
-    if (!(await prisma.person.findUnique({ where: { email: c.Person.create.email } }))) {
+    if ((await prisma.person.findUnique({ where: { email: c.Person.create.email } })) === null) {
       await new PasswordCrypto()
         .encrypt(c.User.create.password)
         .then((res: string) => (c.User.create.password = res))
