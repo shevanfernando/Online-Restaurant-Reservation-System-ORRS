@@ -4,29 +4,30 @@
  * @author  Shevan
  * @file    CustomerData
  */
-import { UserType } from '@prisma/client';
-
-const AdminData = {
-  Person: {
-    create: {
-      firstName: 'Admin',
-      lastName: 'Admin',
-      email: 'admin@gmail.com',
-      phoneNumber: '0112456789',
-      nic: '138975931V',
-    },
-  },
-  User: {
-    create: {
-      username: 'admin',
-      password: 'admin',
-      userType: UserType.ADMIN,
-    },
-  },
-};
+import { UserType, StaffType } from '@prisma/client';
 
 const StaffDataList = [
   {
+    staffType: StaffType.ADMIN,
+    Person: {
+      create: {
+        firstName: 'Admin',
+        lastName: 'Admin',
+        email: 'admin@gmail.com',
+        phoneNumber: '0112456789',
+        nic: '138975931V',
+      },
+    },
+    User: {
+      create: {
+        username: 'admin',
+        password: 'admin',
+        userType: UserType.STAFF,
+      },
+    },
+  },
+  {
+    staffType: StaffType.CHEF,
     Person: {
       create: {
         firstName: 'Aron',
@@ -45,6 +46,7 @@ const StaffDataList = [
     },
   },
   {
+    staffType: StaffType.WAITER,
     Person: {
       create: {
         firstName: 'Shehan',
@@ -63,6 +65,7 @@ const StaffDataList = [
     },
   },
   {
+    staffType: StaffType.RECEPTIONIST,
     Person: {
       create: {
         firstName: 'Nuwangi',
@@ -139,4 +142,4 @@ const CustomerDataList = [
   },
 ];
 
-export { AdminData, StaffDataList, CustomerDataList };
+export { StaffDataList, CustomerDataList };
