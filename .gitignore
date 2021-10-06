@@ -209,3 +209,4 @@ fabric.properties
 
 ### Prisma Migrations
 prisma/migrations
+/.vscode/settings.json
