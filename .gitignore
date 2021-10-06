@@ -117,7 +117,7 @@ dist
 .pnp.*
 
 ### VisualStudioCode template
-.vscode/
+.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -209,3 +209,4 @@ fabric.properties
 
 ### Prisma Migrations
 prisma/migrations
+/.vscode/settings.json
