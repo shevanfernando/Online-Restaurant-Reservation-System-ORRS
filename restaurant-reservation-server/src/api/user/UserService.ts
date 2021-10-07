@@ -7,9 +7,11 @@
 
 import { PrismaClient, UserType } from '@prisma/client';
 import { UserLoginDTO } from '@api/user/dto/user-login.dto';
-import { HttpError } from '@lib/http-error';
+import { HttpError } from '@lib/HttpError';
 import { JWT } from '@util/JWT';
 import { PasswordCrypto } from '@util/PasswordCrypto';
+import { CustomerRegisterDTO } from '@api/user/dto/user-register.dto';
+import titleCaseConverter from '@util/title-case-converter';
 
 export class UserService {
   private jwt: JWT;
@@ -61,8 +63,24 @@ export class UserService {
 
         return this.jwt.generateToken(this.payload);
       }
-      throw new HttpError(400, 'Username or password not valid.');
+      throw new HttpError(400, 'Username or password is invalid.');
     }
-    throw new HttpError(400, 'User not registered');
+    throw new HttpError(400, 'User is not registered');
+  }
+
+  public async customerRegistration(data: CustomerRegisterDTO): Promise<any> {
+    return this.prisma.customer
+      .create({
+        data: { Person: { create: data.person }, User: { create: data.user } },
+      })
+      .catch((err) => {
+        const {
+          code,
+          meta: { target },
+        } = err;
+        if (code === 'P2002') {
+          throw new HttpError(403, `${titleCaseConverter(target[0])} already exists.`);
+        }
+      });
   }
 }

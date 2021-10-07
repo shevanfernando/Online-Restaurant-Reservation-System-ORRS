@@ -5,7 +5,7 @@
  * @file    HttpValidationError
  */
 
-import { HttpError } from './http-error';
+import { HttpError } from './HttpError';
 import Joi from 'joi';
 
 export class HttpValidationError extends HttpError {
