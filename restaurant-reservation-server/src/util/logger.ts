@@ -1,13 +1,13 @@
 /**
- * @created 10/09/2021 - 11:25
- * @project Online-Restaurant-Reservation-System-ORRS
+ * @created 06/10/2021 - 14:00
+ * @project express-ts-startup-project
  * @author  Shevan
- * @file    logger.ts
+ * @file    logger
  */
 
 import winston from 'winston';
 
-import { ENV } from '../config';
+import config from '@src/config';
 
 const levels = {
   error: 0,
@@ -25,7 +25,7 @@ const colors = {
   debug: 'white',
 };
 
-const level = () => (ENV === 'development' ? 'debug' : 'warn');
+const level = () => (config.ENV === 'development' ? 'debug' : 'warn');
 
 winston.addColors(colors);
 
