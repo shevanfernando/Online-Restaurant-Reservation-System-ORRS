@@ -91,10 +91,27 @@ npm run dev
 The server is now running on `http://localhost:5000`. You can now the API requests,
 e.g. [`http://localhost:5000/user`](http://localhost:5000/user).
 
-### 5. Running unit tests
+### 5. Running unit tests and super tests
 
-[comment]: <> (Run `ng test` to execute the unit tests via [Jest]&#40;https://jestjs.io/&#41;.)
+```
+cd express-ts-startup-project
+npm run test
+```
 
-[comment]: <> (### 6. Running end-to-end tests)
+<details><summary><strong>Alternative:</strong> Other testing</summary>
 
-[comment]: <> (Run `ng e2e` to execute the end-to-end tests via [Protractor]&#40;http://www.protractortest.org/&#41;.)
+Watch all test:
+
+```
+cd express-ts-startup-project
+npm run test:watch
+```
+
+Check test coverage:
+
+```
+cd express-ts-startup-project
+npm itest:coverage
+```
+
+</details>

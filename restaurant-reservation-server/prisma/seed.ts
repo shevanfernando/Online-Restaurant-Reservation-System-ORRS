@@ -6,16 +6,16 @@
  */
 import { PrismaClient } from '@prisma/client';
 
-import { DATABASE_URL } from '../src/config';
-import { logger } from '../src/util/logger';
+import config from '../src/config';
 import { PasswordCrypto } from '../src/util/PasswordCrypto';
 
 import { CustomerDataList, StaffDataList } from './dummy-data/UserData';
+import { logger } from '../src/util/logger';
 
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: DATABASE_URL(),
+      url: config.DATABASE_URL,
     },
   },
 });

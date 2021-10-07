@@ -1,25 +1,25 @@
 /**
- * @created 26/09/2021 - 16:17
- * @project Online-Restaurant-Reservation-System-ORRS
+ * @created 06/10/2021 - 13:40
+ * @project express-ts-startup-project
  * @author  Shevan
  * @file    JWT
  */
 
-import { ENV, TOKEN_EXPIRE_TIME, TOKEN_SECRET } from '@src/config';
+import config from '@src/config';
 import { sign, verify } from 'jsonwebtoken';
 
 export class JWT {
-  private _accessSecretToken: string = TOKEN_SECRET;
+  private _accessSecretToken: string = config.TOKEN_SECRET;
 
-  public generateToken(data: any): Promise<string> {
+  public generateToken(data: string | any): Promise<string> {
     return new Promise((resolve: string | any, reject: string | any) => {
       sign(
         { data },
         this._accessSecretToken,
-        { expiresIn: TOKEN_EXPIRE_TIME },
+        { expiresIn: config.TOKEN_EXPIRE_TIME, algorithm: 'HS256' },
         (err: Error | null, token: string | undefined) => {
           if (err !== null) {
-            return reject(ENV === 'development' ? err : 'Internal Server Error');
+            return reject(config.ENV === 'development' ? err : 'Internal Server Error');
           }
           return resolve(token);
         }
@@ -32,7 +32,11 @@ export class JWT {
       verify(token, this._accessSecretToken, (err: Error | null, payload: any) => {
         if (err !== null) {
           const message =
-            err.name === 'JsonWebTokenError' ? 'Unauthorized' : ENV === 'development' ? err : 'Internal Server Error';
+            err.name === 'JsonWebTokenError'
+              ? 'Unauthorized'
+              : config.ENV === 'development'
+              ? err
+              : 'Internal Server Error';
           return reject(message);
         }
         resolve(payload);

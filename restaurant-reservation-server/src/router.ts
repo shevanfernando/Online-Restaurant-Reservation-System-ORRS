@@ -1,16 +1,16 @@
 /**
- * @created 10/09/2021 - 12:46
- * @project Online-Restaurant-Reservation-System-ORRS
+ * @created 06/10/2021 - 11:20
+ * @project express-ts-startup-project
  * @author  Shevan
  * @file    router
  */
 
-import userRouter from '@src/api/user/user.router';
-import { API_PREFIX } from '@src/config';
 import { Router } from 'express';
+import config from '@src/config';
+import userRouter from '@api/user/user.router';
 
-const router = Router();
+const router: Router = Router();
 
-router.use(`${API_PREFIX}/user`, userRouter);
+router.use(`${config.API_PREFIX}/user`, userRouter);
 
 export default router;

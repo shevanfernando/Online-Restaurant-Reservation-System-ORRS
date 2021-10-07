@@ -10,9 +10,9 @@ generator client {
 model Customer {
   customerId String    @id @default(uuid())
   Person     Person    @relation(fields: [personId], references: [id])
-  personId   Int
+  personId   Int       @unique
   User       User      @relation(fields: [userId], references: [id])
-  userId     Int
+  userId     Int       @unique
   Booking    Booking[]
 }
 
@@ -20,9 +20,9 @@ model Staff {
   staffId   String    @id @default(uuid())
   staffType StaffType
   Person    Person    @relation(fields: [personId], references: [id])
-  personId  Int
+  personId  Int       @unique
   User      User      @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    Int       @unique
 }
 
 enum StaffType {

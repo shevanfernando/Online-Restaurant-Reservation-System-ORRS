@@ -9,16 +9,35 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-export const ENV = process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV;
-export const PORT = process.env.APP_PORT === undefined ? 3000 : process.env.APP_PORT;
-export const APP_URL = process.env.APP_URL === undefined ? 'http://localhost' : process.env.APP_URL;
-export const DATABASE_URL = () => {
-  if (ENV === 'development') {
-    return process.env.DB_URL;
-  }
+let DATABASE_URL;
 
-  return process.env.DB_TEST_URL;
+switch (process.env.NODE_ENV) {
+  case 'production': {
+    // initialize your variables in production env
+    break;
+  }
+  case 'test': {
+    DATABASE_URL = process.env.DB_TEST_URL;
+    break;
+  }
+  default: {
+    DATABASE_URL = process.env.DB_URL;
+  }
+}
+
+const API_PREFIX = '/api';
+const API_PORT = process.env.APP_PORT || 3000;
+const APP_URL = process.env.APP_URL || 'http://localhost';
+const ENV = process.env.NODE_ENV || 'development';
+const TOKEN_SECRET = process.env.TOKEN_SECRET || 'Pas@wOrd';
+const TOKEN_EXPIRE_TIME = process.env.TOKEN_EXPIRE_TIME || '1h';
+
+export default {
+  DATABASE_URL,
+  API_PREFIX,
+  API_PORT,
+  APP_URL,
+  ENV,
+  TOKEN_SECRET,
+  TOKEN_EXPIRE_TIME,
 };
-export const API_PREFIX = '/api';
-export const TOKEN_SECRET = process.env.TOKEN_SECRET === undefined ? 'Pas@wOrd' : process.env.TOKEN_SECRET;
-export const TOKEN_EXPIRE_TIME = process.env.TOKEN_EXPIRE_TIME === undefined ? '1h' : process.env.TOKEN_EXPIRE_TIME;
