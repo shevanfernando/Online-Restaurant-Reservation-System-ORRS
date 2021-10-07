@@ -31,7 +31,7 @@ export const customerRegisterDTOObject = Joi.object({
     firstName: Joi.string().min(1).max(20).required(),
     lastName: Joi.string().min(1).max(20),
     email: Joi.string().email().required(),
-    phoneNumber: Joi.string().regex(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/),
+    phoneNumber: Joi.string().regex(/^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/),
     nic: Joi.string()
       .regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/m)
       .required(),
@@ -48,7 +48,7 @@ export const staffRegisterDTOObject = Joi.object({
     firstName: Joi.string().min(1).max(20).required(),
     lastName: Joi.string().min(1).max(20),
     email: Joi.string().email().required(),
-    phoneNumber: Joi.string().regex(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/),
+    phoneNumber: Joi.string().regex(/^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/),
     nic: Joi.string()
       .regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/m)
       .required(),

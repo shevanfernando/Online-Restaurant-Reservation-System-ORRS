@@ -76,7 +76,7 @@ are defined in [`prisma/schema.prisma`](./prisma/schema.prisma):
 npm run prisma:migration
 ```
 
-Now, seed the database with the sample data in [`prisma/seed.ts`](./prisma/seed.ts) by running the following command:
+Now, seed the database with the sample data in [`prisma/seed.ts`](prisma/seed.ts) by running the following command:
 
 ```
 npm run prisma:seed

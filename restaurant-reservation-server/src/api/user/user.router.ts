@@ -9,6 +9,7 @@ import { UserService } from '@api/user/UserService';
 import { NextFunction, Request, Response, Router } from 'express';
 import userLoginDTO from '@api/user/dto/user-login.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';
+import customerRegisterDTO from '@api/user/dto/user-register.dto';
 
 const router = Router();
 const user = new UserService();
@@ -23,6 +24,19 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
   await user
     .login(value)
     .then((result: string) => res.status(200).json(result))
+    .catch((err) => next(err));
+});
+
+router.post('/customer-registration', async (req: Request, res: Response, next: NextFunction) => {
+  const { error, value } = customerRegisterDTO.validateCustomerDTO(req.body);
+
+  if (error) {
+    return next(new HttpValidationError(error));
+  }
+
+  await user
+    .customerRegistration(value)
+    .then((result) => res.status(200).json(result))
     .catch((err) => next(err));
 });
 

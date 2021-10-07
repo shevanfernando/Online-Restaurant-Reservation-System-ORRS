@@ -8,7 +8,7 @@
 import express, { Application, json, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import router from '@src/router';
-import { HttpError } from '@lib/http-error';
+import { HttpError } from '@lib/HttpError';
 import { logger } from '@util/logger';
 import { httpLogger } from '@middlewares/http-logger';
 
