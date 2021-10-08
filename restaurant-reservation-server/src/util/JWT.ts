@@ -27,7 +27,7 @@ export class JWT {
     });
   }
 
-  public verifyToken(token: string): Promise<boolean> {
+  public verifyToken(token: string): Promise<any> {
     return new Promise((resolve: string | any, reject: string | any) => {
       verify(token, this._accessSecretToken, (err: Error | null, payload: any) => {
         if (err !== null) {
