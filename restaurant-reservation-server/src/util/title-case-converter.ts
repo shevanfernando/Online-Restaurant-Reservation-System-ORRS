@@ -5,7 +5,7 @@
  * @file    title-case-converter
  */
 
-const titleCaseConverter = (text: string) => {
+const titleCaseConverter = (text: string): string => {
   return text
     .split(' ')
     .map((w: string) => w[0].toUpperCase() + w.substr(1).toLowerCase())
