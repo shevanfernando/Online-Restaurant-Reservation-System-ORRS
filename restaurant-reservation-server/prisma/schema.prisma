@@ -8,7 +8,7 @@ generator client {
 }
 
 model Customer {
-  customerId String    @id @default(uuid())
+  customerId String    @id
   Person     Person    @relation(fields: [personId], references: [id])
   personId   Int       @unique
   User       User      @relation(fields: [userId], references: [id])
@@ -17,7 +17,7 @@ model Customer {
 }
 
 model Staff {
-  staffId   String    @id @default(uuid())
+  staffId   String    @id
   staffType StaffType
   Person    Person    @relation(fields: [personId], references: [id])
   personId  Int       @unique
@@ -58,7 +58,7 @@ enum UserType {
 }
 
 model Food {
-  foodId      Int    @id @default(autoincrement())
+  foodId      Int    @id
   name        String
   description String
   price       Float
@@ -69,7 +69,7 @@ model Food {
 }
 
 model Order {
-  orderId            Int      @id @default(autoincrement())
+  orderId            Int      @id
   foodList           Food[]
   noOfPersons        Int
   requestDateAndTime DateTime
@@ -77,7 +77,7 @@ model Order {
 }
 
 model Table {
-  tableId          String     @id @default(uuid())
+  tableId          String     @id
   tableType        TableTypes
   numberOfSeats    Int
   isAvailable      Boolean
@@ -93,7 +93,7 @@ enum TableTypes {
 }
 
 model Booking {
-  bookingId      String   @id @default(uuid())
+  bookingId      String   @id
   bookingDate    DateTime
   startTime      DateTime
   endTime        DateTime
