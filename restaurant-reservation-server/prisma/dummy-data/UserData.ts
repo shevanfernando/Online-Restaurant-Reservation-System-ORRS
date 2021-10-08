@@ -142,4 +142,4 @@ const CustomerDataList = [
   },
 ];
 
-export { StaffDataList, CustomerDataList };
+export default { StaffDataList, CustomerDataList };

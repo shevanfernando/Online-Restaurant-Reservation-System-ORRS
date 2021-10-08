@@ -10,8 +10,9 @@ import { UserLoginDTO } from '@api/user/dto/user-login.dto';
 import { HttpError } from '@lib/HttpError';
 import { JWT } from '@util/JWT';
 import { PasswordCrypto } from '@util/PasswordCrypto';
-import { CustomerRegisterDTO } from '@api/user/dto/user-register.dto';
+import { CustomerRegisterDTO, StaffRegisterDTO } from '@api/user/dto/user-register.dto';
 import titleCaseConverter from '@util/title-case-converter';
+import sequenceGenerator from '@util/IdSequenceGenerator';
 
 export class UserService {
   private jwt: JWT;
@@ -60,7 +61,6 @@ export class UserService {
             break;
           }
         }
-
         return this.jwt.generateToken(this.payload);
       }
       throw new HttpError(400, 'Username or password is invalid.');
@@ -69,9 +69,11 @@ export class UserService {
   }
 
   public async customerRegistration(data: CustomerRegisterDTO): Promise<any> {
+    const id = await sequenceGenerator.idGenerator('CUS_', 'customer');
+    data.user.password = await this.passwordCrypto.encrypt(data.user.password);
     return this.prisma.customer
       .create({
-        data: { Person: { create: data.person }, User: { create: data.user } },
+        data: { customerId: id, Person: { create: data.person }, User: { create: data.user } },
       })
       .catch((err) => {
         const {
@@ -80,6 +82,30 @@ export class UserService {
         } = err;
         if (code === 'P2002') {
           throw new HttpError(403, `${titleCaseConverter(target[0])} already exists.`);
+        }
+      });
+  }
+
+  public async staffRegistration(data: StaffRegisterDTO): Promise<any> {
+    const id = await sequenceGenerator.idGenerator('STF_', 'staff');
+    data.user.password = await this.passwordCrypto.encrypt(data.user.password);
+
+    return this.prisma.staff
+      .create({
+        data: {
+          staffId: id,
+          staffType: data.staffType,
+          Person: { create: data.person },
+          User: { create: data.user },
+        },
+      })
+      .catch((err) => {
+        const {
+          code,
+          meta: { target },
+        } = err;
+        if (code === 'P2002') {
+          throw new HttpError(403, `${titleCaseConverter(target[0])} already exists`);
         }
       });
   }
