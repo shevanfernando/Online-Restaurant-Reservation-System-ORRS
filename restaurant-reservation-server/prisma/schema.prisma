@@ -83,7 +83,7 @@ model Table {
   isAvailable      Boolean
   Booking          Booking?   @relation(fields: [bookingBookingId], references: [bookingId])
   bookingBookingId String?
-  Oder             Order      @relation(fields: [orderId], references: [orderId])
+  Oder             Order?     @relation(fields: [orderId], references: [orderId])
   orderId          Int
 }
 
