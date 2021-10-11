@@ -13,7 +13,7 @@ const leadingZeros = (number: number): string => {
 const idGenerator = async (stringLiterals: string, tableName: string): Promise<string> => {
   const prisma = new PrismaClient();
   let result: any[] = [];
-  let num: number = 0;
+  let num = 0;
   switch (tableName) {
     case 'customer': {
       result = await prisma.customer.findMany({ take: 1, orderBy: { customerId: 'desc' } });
@@ -28,6 +28,11 @@ const idGenerator = async (stringLiterals: string, tableName: string): Promise<s
     case 'food': {
       result = await prisma.food.findMany({ take: 1, orderBy: { foodId: 'desc' } });
       if (result.length !== 0) num = Number(result[0].foodId.split(stringLiterals)[1]) + 1;
+      break;
+    }
+    case 'beverage': {
+      result = await prisma.beverage.findMany({ take: 1, orderBy: { beverageId: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].beverageId.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'order': {
