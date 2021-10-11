@@ -4,8 +4,40 @@
  * @author  Shevan
  * @file    FoodData
  */
+
+import { FoodType } from '@prisma/client';
+
 const FoodDataList = [
-  { create: { name: 'Fried Rice', description: 'Lorem ipsum', price: 320.0, foodType: 'MAIN_DISH' } },
+  {
+    foodType: FoodType.SIDE_DISHES,
+    Victual: {
+      create: {
+        name: 'French Fries',
+        description: 'Lorem ipsum',
+        price: 200.0,
+      },
+    },
+  },
+  {
+    foodType: FoodType.SIDE_DISHES,
+    Victual: {
+      create: {
+        name: 'Garlic Bread',
+        description: 'Lorem ipsum',
+        price: 320.0,
+      },
+    },
+  },
+  {
+    foodType: FoodType.MAIN_COURSES,
+    Victual: {
+      create: {
+        name: 'Fried Rice',
+        description: 'Lorem ipsum',
+        price: 360.0,
+      },
+    },
+  },
 ];
 
 export default FoodDataList;
