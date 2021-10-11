@@ -27,7 +27,7 @@ const authGuard = (roles: Roles[]): ((req: Request, res: Response, next: NextFun
           if (roles.includes(res.data.userType)) {
             next();
           } else {
-            next(new HttpError(401, 'Unauthorized'));
+            next(new HttpError(403, 'Forbidden'));
           }
         })
         .catch((err) => next(new HttpError(401, err)));
