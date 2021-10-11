@@ -59,7 +59,7 @@ enum UserType {
 
 model Victual {
   victualId   Int        @id @default(autoincrement())
-  name        String
+  name        String     @unique
   description String
   price       Float
   image       Bytes?
