@@ -118,6 +118,7 @@
   },
   "defaultProject": "restaurant-reservation-client",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@angular-eslint/schematics"
   }
 }
