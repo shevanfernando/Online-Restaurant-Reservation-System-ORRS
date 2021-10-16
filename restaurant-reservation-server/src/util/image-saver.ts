@@ -43,6 +43,6 @@ const fileFilter = (req: Request, file: Express.Multer.File, callback: FileFilte
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-});
+}).single('image');
 
 export default upload;

@@ -62,7 +62,7 @@ model Victual {
   name        String     @unique
   description String
   price       Float
-  image       Bytes?
+  imagePath       String?
   Food        Food[]
   Beverage    Beverage[]
 }

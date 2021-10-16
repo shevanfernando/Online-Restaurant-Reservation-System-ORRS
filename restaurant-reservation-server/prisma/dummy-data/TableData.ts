@@ -5,6 +5,25 @@
  * @file    TableData
  */
 
-const TableData = {};
+import { TableTypes } from '@prisma/client';
+
+const TableData = [
+  {
+    tableType: TableTypes.RESERVATION,
+    numberOfSeats: 2,
+  },
+  {
+    tableType: TableTypes.RESERVATION,
+    numberOfSeats: 4,
+  },
+  {
+    tableType: TableTypes.RESERVATION,
+    numberOfSeats: 8,
+  },
+  {
+    tableType: TableTypes.RESERVATION,
+    numberOfSeats: 12,
+  },
+];
 
 export default TableData;

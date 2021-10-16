@@ -5,6 +5,6 @@
  * @file    OrderData
  */
 
-const OrderData = {};
+const OrderData = [{}];
 
 export default OrderData;
