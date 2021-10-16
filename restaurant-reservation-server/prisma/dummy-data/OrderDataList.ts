@@ -2,9 +2,9 @@
  * @created 10/10/2021 - 19:46
  * @project settings.json
  * @author  Shevan
- * @file    OrderData
+ * @file    OrderDataList
  */
 
-const OrderData = [{}];
+const OrderDataList = [{}];
 
-export default OrderData;
+export default OrderDataList;

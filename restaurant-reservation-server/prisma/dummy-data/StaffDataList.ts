@@ -7,7 +7,7 @@
 
 import { StaffType, UserType } from '@prisma/client';
 
-const StaffDataList = [
+export const StaffDataList = [
   {
     staffType: StaffType.ADMIN,
     Person: {
@@ -85,5 +85,3 @@ const StaffDataList = [
     },
   },
 ];
-
-export default StaffDataList;

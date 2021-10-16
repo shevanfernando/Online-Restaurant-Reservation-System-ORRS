@@ -7,7 +7,7 @@
 
 import { FoodType } from '@prisma/client';
 
-const FoodDataList = [
+export const FoodDataList = [
   {
     foodType: FoodType.SIDE_DISHES,
     Victual: {
@@ -39,5 +39,3 @@ const FoodDataList = [
     },
   },
 ];
-
-export default FoodDataList;

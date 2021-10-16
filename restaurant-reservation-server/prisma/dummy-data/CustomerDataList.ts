@@ -6,7 +6,7 @@
  */
 import { UserType } from '@prisma/client';
 
-const CustomerDataList = [
+export const CustomerDataList = [
   {
     Person: {
       create: {
@@ -62,5 +62,3 @@ const CustomerDataList = [
     },
   },
 ];
-
-export default CustomerDataList;

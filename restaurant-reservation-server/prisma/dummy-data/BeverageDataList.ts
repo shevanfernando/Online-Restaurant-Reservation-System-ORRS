@@ -7,7 +7,7 @@
 
 import { BeverageType } from '@prisma/client';
 
-const BeverageDataList = [
+export const BeverageDataList = [
   {
     beverageType: BeverageType.REFRESHING,
     Victual: {
@@ -59,5 +59,3 @@ const BeverageDataList = [
     },
   },
 ];
-
-export default BeverageDataList;

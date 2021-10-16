@@ -2,12 +2,12 @@
  * @created 10/10/2021 - 19:45
  * @project settings.json
  * @author  Shevan
- * @file    TableData
+ * @file    TableDataList
  */
 
 import { TableTypes } from '@prisma/client';
 
-const TableData = [
+const TableDataList = [
   {
     tableType: TableTypes.RESERVATION,
     numberOfSeats: 2,
@@ -26,4 +26,4 @@ const TableData = [
   },
 ];
 
-export default TableData;
+export default TableDataList;
