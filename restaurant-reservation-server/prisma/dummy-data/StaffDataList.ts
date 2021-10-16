@@ -1,12 +1,13 @@
 /**
- * @created 26/09/2021 - 09:12
- * @project Online-Restaurant-Reservation-System-ORRS
+ * @created 11/10/2021 - 12:33
+ * @project settings.json
  * @author  Shevan
- * @file    CustomerData
+ * @file    StaffData
  */
-import { UserType, StaffType } from '@prisma/client';
 
-const StaffDataList = [
+import { StaffType, UserType } from '@prisma/client';
+
+export const StaffDataList = [
   {
     staffType: StaffType.ADMIN,
     Person: {
@@ -84,62 +85,3 @@ const StaffDataList = [
     },
   },
 ];
-
-const CustomerDataList = [
-  {
-    Person: {
-      create: {
-        firstName: 'Shevan',
-        lastName: 'Fernando',
-        email: 'w.k.b.s.t.fernando@gmail.com',
-        phoneNumber: '0123456789',
-        nic: '128975931V',
-      },
-    },
-    User: {
-      create: {
-        username: 'shevan',
-        password: '12345',
-        userType: UserType.CUSTOMER,
-      },
-    },
-  },
-  {
-    Person: {
-      create: {
-        firstName: 'Hirushan',
-        lastName: 'Fernando',
-        email: 'hirushan@gmail.com',
-        phoneNumber: '1234567890',
-        nic: '994814965V',
-      },
-    },
-    User: {
-      create: {
-        username: 'hirushan',
-        password: '12345',
-        userType: UserType.CUSTOMER,
-      },
-    },
-  },
-  {
-    Person: {
-      create: {
-        firstName: 'Bimsara',
-        lastName: 'De Silva',
-        email: 'bimasara@gmail.com',
-        phoneNumber: '1239677890',
-        nic: '974814965V',
-      },
-    },
-    User: {
-      create: {
-        username: 'bimasara',
-        password: '12345',
-        userType: UserType.CUSTOMER,
-      },
-    },
-  },
-];
-
-export default { StaffDataList, CustomerDataList };

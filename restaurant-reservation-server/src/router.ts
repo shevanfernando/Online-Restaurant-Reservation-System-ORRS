@@ -5,12 +5,25 @@
  * @file    router
  */
 
-import { Router } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import config from '@src/config';
 import userRouter from '@api/user/user.router';
+
+import feedbackRouter from '@api/feedback/feedback.router';
+import upload from '@util/image-saver';
 
 const router: Router = Router();
 
 router.use(`${config.API_PREFIX}/user`, userRouter);
+
+router.use(`${config.API_PREFIX}/feedback`, feedbackRouter);
+
+router.post(
+  `${config.API_PREFIX}/test-file-upload`,
+  upload,
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.send('Image upload success...');
+  }
+);
 
 export default router;

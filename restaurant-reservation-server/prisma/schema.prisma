@@ -57,34 +57,72 @@ enum UserType {
   STAFF
 }
 
-model Food {
-  foodId      Int    @id
-  name        String
+model Victual {
+  victualId   Int        @id @default(autoincrement())
+  name        String     @unique
   description String
   price       Float
-  foodType    String
-  image       Bytes?
-  Order       Order? @relation(fields: [orderId], references: [orderId])
-  orderId     Int?
+  imagePath   String?
+  Food        Food[]
+  Beverage    Beverage[]
+}
+
+model Food {
+  foodId    String   @id
+  foodType  FoodType
+  Victual   Victual  @relation(fields: [victualId], references: [victualId])
+  victualId Int
+  Order     Order?   @relation(fields: [orderId], references: [orderId])
+  orderId   String?
+}
+
+enum FoodType {
+  STARTERS
+  SIDE_DISHES
+  MAIN_COURSES
+  DESSERTS
+}
+
+model Beverage {
+  beverageId   String       @id
+  beverageType BeverageType
+  Victual      Victual      @relation(fields: [victualId], references: [victualId])
+  victualId    Int
+  Order        Order?       @relation(fields: [orderId], references: [orderId])
+  orderId      String?
+}
+
+enum BeverageType {
+  STIMULATING
+  NOURISHING
+  REFRESHING
+  BEER
+  VINE
+  WHISKY
+  VODKA
+  RUM
+  BRANDY
 }
 
 model Order {
-  orderId            Int      @id
+  orderId            String     @id
   foodList           Food[]
+  beveragesList      Beverage[]
   noOfPersons        Int
   requestDateAndTime DateTime
   Table              Table[]
+  Booking            Booking?   @relation(fields: [bookingId], references: [bookingId])
+  bookingId          String?
 }
 
 model Table {
-  tableId          String     @id
-  tableType        TableTypes
-  numberOfSeats    Int
-  isAvailable      Boolean
-  Booking          Booking?   @relation(fields: [bookingBookingId], references: [bookingId])
-  bookingBookingId String?
-  Oder             Order      @relation(fields: [orderId], references: [orderId])
-  orderId          Int
+  tableId       String     @id
+  tableType     TableTypes
+  numberOfSeats Int
+  Order         Order?     @relation(fields: [orderId], references: [orderId])
+  orderId       String?
+  Booking       Booking?   @relation(fields: [bookingId], references: [bookingId])
+  bookingId     String?
 }
 
 enum TableTypes {
@@ -98,6 +136,26 @@ model Booking {
   startTime      DateTime
   endTime        DateTime
   reservedTables Table[]
+  oreders        Order[]
   Customer       Customer @relation(fields: [customerId], references: [customerId])
   customerId     String
+}
+
+model Feedback {
+  feedbackId Int          @id @default(autoincrement())
+  level      Experiance
+  feedback   String
+  type       FeedbackType
+}
+
+enum Experiance {
+  POOR
+  AVERAGE
+  GOOD
+}
+
+enum FeedbackType {
+  BUG
+  SUGGESTION
+  OTHER
 }

@@ -27,20 +27,23 @@ export class JWT {
     });
   }
 
-  public verifyToken(token: string): Promise<any> {
+  public verifyToken(token?: string): Promise<any> {
     return new Promise((resolve: string | any, reject: string | any) => {
-      verify(token, this._accessSecretToken, (err: Error | null, payload: any) => {
-        if (err !== null) {
-          const message =
-            err.name === 'JsonWebTokenError'
-              ? 'Unauthorized'
-              : config.ENV === 'development'
-              ? err
-              : 'Internal Server Error';
-          return reject(message);
-        }
-        resolve(payload);
-      });
+      if (token) {
+        verify(token, this._accessSecretToken, (err: Error | null, payload: any) => {
+          if (err) {
+            const message =
+              err.name === 'JsonWebTokenError'
+                ? 'Unauthorized'
+                : config.ENV === 'development'
+                ? err
+                : 'Internal Server Error';
+            return reject(message);
+          }
+          resolve(payload);
+        });
+      }
+      return reject('Unauthorized');
     });
   }
 }
