@@ -62,7 +62,7 @@ model Victual {
   name        String     @unique
   description String
   price       Float
-  imagePath       String?
+  imagePath   String?
   Food        Food[]
   Beverage    Beverage[]
 }
@@ -139,4 +139,23 @@ model Booking {
   oreders        Order[]
   Customer       Customer @relation(fields: [customerId], references: [customerId])
   customerId     String
+}
+
+model Feedback {
+  feedbackId Int          @id @default(autoincrement())
+  level      Experiance
+  feedback   String
+  type       FeedbackType
+}
+
+enum Experiance {
+  POOR
+  AVERAGE
+  GOOD
+}
+
+enum FeedbackType {
+  BUG
+  SUGGESTION
+  OTHERS
 }
