@@ -1,6 +1,11 @@
 ### Node template
+
+# Build
+dist/
+build/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -20,7 +25,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/
 *.lcov
 
 # nyc test coverage
@@ -117,7 +122,7 @@ dist
 .pnp.*
 
 ### VisualStudioCode template
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -131,7 +136,7 @@ dist
 ### Example user template
 
 # IntelliJ project files
-.idea
+.idea/
 *.iml
 gen
 ### JetBrains template
@@ -203,6 +208,8 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+.run/
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser

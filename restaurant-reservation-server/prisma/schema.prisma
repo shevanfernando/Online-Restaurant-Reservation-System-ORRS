@@ -1,0 +1,103 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Customer {
+  customerId String    @id
+  Person     Person    @relation(fields: [personId], references: [id])
+  personId   Int       @unique
+  User       User      @relation(fields: [userId], references: [id])
+  userId     Int       @unique
+  Booking    Booking[]
+}
+
+model Staff {
+  staffId   String    @id
+  staffType StaffType
+  Person    Person    @relation(fields: [personId], references: [id])
+  personId  Int       @unique
+  User      User      @relation(fields: [userId], references: [id])
+  userId    Int       @unique
+}
+
+enum StaffType {
+  RECEPTIONIST
+  WAITER
+  ADMIN
+  CHEF
+}
+
+model Person {
+  id          Int       @id @default(autoincrement())
+  firstName   String
+  lastName    String?
+  email       String    @unique
+  phoneNumber String?   @unique
+  nic         String    @unique
+  Customer    Customer?
+  Staff       Staff?
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  username String    @unique
+  password String
+  userType UserType
+  Customer Customer?
+  Staff    Staff?
+}
+
+enum UserType {
+  CUSTOMER
+  STAFF
+}
+
+model Food {
+  foodId      Int    @id
+  name        String
+  description String
+  price       Float
+  foodType    String
+  image       Bytes?
+  Order       Order? @relation(fields: [orderId], references: [orderId])
+  orderId     Int?
+}
+
+model Order {
+  orderId            Int      @id
+  foodList           Food[]
+  noOfPersons        Int
+  requestDateAndTime DateTime
+  Table              Table[]
+}
+
+model Table {
+  tableId          String     @id
+  tableType        TableTypes
+  numberOfSeats    Int
+  isAvailable      Boolean
+  Booking          Booking?   @relation(fields: [bookingBookingId], references: [bookingId])
+  bookingBookingId String?
+  Oder             Order      @relation(fields: [orderId], references: [orderId])
+  orderId          Int
+}
+
+enum TableTypes {
+  NORMAL
+  RESERVATION
+}
+
+model Booking {
+  bookingId      String   @id
+  bookingDate    DateTime
+  startTime      DateTime
+  endTime        DateTime
+  reservedTables Table[]
+  Customer       Customer @relation(fields: [customerId], references: [customerId])
+  customerId     String
+}
