@@ -27,19 +27,20 @@ Here are all the contributors to our project.
 ## Clone project <hr>
 
 ```
-mkdir restaurant-reservation
-cd restaurant-reservation
 git clone https://github.com/shevanfernando/Online-Restaurant-Reservation-System-ORRS.git
+cd Online-Restaurant-Reservation-System-ORRS
 ```
 
 Install npm dependencies:
 
 ```
+cd Online-Restaurant-Reservation-System-ORRS
 cd restaurant-reservation/restaurant-reservation-client
 npm install
 
 AND
 
+cd Online-Restaurant-Reservation-System-ORRS
 cd restaurant-reservation/restaurant-reservation-server
 npm install
 
