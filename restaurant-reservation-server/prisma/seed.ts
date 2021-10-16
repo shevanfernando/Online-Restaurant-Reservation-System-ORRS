@@ -9,18 +9,20 @@ import { PrismaClient } from '@prisma/client';
 import config from '../src/config';
 import { PasswordCrypto } from '@util/PasswordCrypto';
 
-import staffDataList from './dummy-data/StaffData';
-import customerDataList from './dummy-data/CustomerData';
-import foodDataList from './dummy-data/FoodData';
-import beverageDataList from './dummy-data/BeverageData';
+import { StaffDataList } from './dummy-data/StaffDataList';
+import { CustomerDataList } from './dummy-data/CustomerDataList';
+import { FoodDataList } from './dummy-data/FoodDataList';
+import { BeverageDataList } from './dummy-data/BeverageDataList';
 import { logger } from '@util/logger';
 import sequenceGenerator from '@util/IdSequenceGenerator';
+import { FeedbackDataList } from './dummy-data/FeedbackDataList';
 
 const dummyData = {
-  staffDataList,
-  customerDataList,
-  foodDataList,
-  beverageDataList,
+  staffDataList: StaffDataList,
+  customerDataList: CustomerDataList,
+  foodDataList: FoodDataList,
+  beverageDataList: BeverageDataList,
+  feedbackDataList: FeedbackDataList,
 };
 
 const prisma = new PrismaClient({
@@ -102,6 +104,14 @@ async function main() {
         },
       });
       logger.info(`Create beverage with id: ${beverage.beverageId}`);
+    }
+  }
+
+  // Add Feedbacks
+  for (const feed of dummyData.feedbackDataList) {
+    if ((await prisma.feedback.findMany()).length < 3) {
+      const feedback = await prisma.feedback.create({ data: feed });
+      logger.info(`Create feedback with id: ${feedback.feedbackId}`);
     }
   }
 
