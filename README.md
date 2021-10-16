@@ -29,7 +29,7 @@ Here are all the contributors to our project.
 ```
 mkdir restaurant-reservation
 cd restaurant-reservation
-git clone https://github.com/shevanfernando/restaurant-reservation.git
+git clone https://github.com/shevanfernando/Online-Restaurant-Reservation-System-ORRS.git
 ```
 
 Install npm dependencies:
