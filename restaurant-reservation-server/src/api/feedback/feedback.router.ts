@@ -15,7 +15,7 @@ import AuthGuard, { Roles } from '@middlewares/auth-guard';
 
 const router = Router();
 
-router.post('/create-new-feedback', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/create-feedback', async (req: Request, res: Response, next: NextFunction) => {
   const { value, error } = feedbackDTO.validate(req.body);
 
   if (error) {
