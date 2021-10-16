@@ -20,18 +20,16 @@ export enum Roles {
 const authGuard = (roles: Roles[]): ((req: Request, res: Response, next: NextFunction) => void) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1];
-    if (token) {
-      new JWT()
-        .verifyToken(token)
-        .then((res: { data: any }) => {
-          if (roles.includes(res.data.userType)) {
-            next();
-          } else {
-            next(new HttpError(403, 'Forbidden'));
-          }
-        })
-        .catch((err) => next(new HttpError(401, err)));
-    }
+    new JWT()
+      .verifyToken(token)
+      .then((res: { data: any }) => {
+        if (roles.includes(res.data.userType)) {
+          next();
+        } else {
+          next(new HttpError(403, 'Forbidden'));
+        }
+      })
+      .catch((err) => next(new HttpError(401, err)));
   };
 };
 
