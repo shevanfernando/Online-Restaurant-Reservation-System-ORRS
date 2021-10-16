@@ -26,7 +26,7 @@ const feedbackDTOObject = Joi.object({
   }),
   type: Joi.valid(FeedbackType.BUG, FeedbackType.OTHERS, FeedbackType.SUGGESTION)
     .required()
-    .messages({ 'any:only': `Feedback Type is allowed only, {#valids}` }),
+    .messages({ 'any.only': `Feedback Type is allowed only, {#valids}` }),
 }).required();
 
 export default {
