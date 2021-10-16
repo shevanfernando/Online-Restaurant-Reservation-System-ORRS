@@ -1,4 +1,4 @@
-import { UserType, StaffType } from '.prisma/client';
+import { UserType, StaffType } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type PersonDTO = {
