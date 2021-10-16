@@ -37,9 +37,7 @@ router.post('/customer-registration', async (req: Request, res: Response, next: 
 
   await user
     .customerRegistration(value)
-    .then((result) => {
-      res.status(200).json(result);
-    })
+    .then((result) => res.status(200).send())
     .catch((err) => next(err));
 });
 
@@ -55,7 +53,7 @@ router.post(
 
     await user
       .staffRegistration(value)
-      .then((result) => res.status(200).json(result))
+      .then((result) => res.status(200).send())
       .catch((err) => next(err));
   }
 );

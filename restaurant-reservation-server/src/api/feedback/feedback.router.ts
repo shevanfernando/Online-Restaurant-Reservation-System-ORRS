@@ -24,7 +24,7 @@ router.post('/create-feedback', async (req: Request, res: Response, next: NextFu
 
   await feedbackService
     .createNewFeedback(value)
-    .then((result: Prisma.Prisma__FeedbackClient<Feedback>) => res.status(200).json(result))
+    .then((result: Prisma.Prisma__FeedbackClient<Feedback>) => res.status(200).send())
     .catch((err) => next(err));
 });
 
