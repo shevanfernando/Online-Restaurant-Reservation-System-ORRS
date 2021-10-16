@@ -5,7 +5,7 @@
  * @file    UserService
  */
 
-import { PrismaClient, UserType } from '@prisma/client';
+import { Prisma, PrismaClient, Customer, Staff, UserType } from '@prisma/client';
 import { UserLoginDTO } from '@api/user/dto/user-login.dto';
 import { HttpError } from '@lib/HttpError';
 import { JWT } from '@util/JWT';
@@ -68,7 +68,9 @@ export class UserService {
     throw new HttpError(400, 'User is not registered');
   }
 
-  public async customerRegistration(data: CustomerRegisterDTO): Promise<any> {
+  public async customerRegistration(
+    data: CustomerRegisterDTO
+  ): Promise<Prisma.Prisma__CustomerClient<Customer | void>> {
     const id = await sequenceGenerator.idGenerator('CUS_', 'customer');
     data.user.password = await this.passwordCrypto.encrypt(data.user.password);
     return this.prisma.customer
@@ -86,10 +88,9 @@ export class UserService {
       });
   }
 
-  public async staffRegistration(data: StaffRegisterDTO): Promise<any> {
+  public async staffRegistration(data: StaffRegisterDTO): Promise<Prisma.Prisma__StaffClient<Staff | void>> {
     const id = await sequenceGenerator.idGenerator('STF_', 'staff');
     data.user.password = await this.passwordCrypto.encrypt(data.user.password);
-
     return this.prisma.staff
       .create({
         data: {
