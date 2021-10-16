@@ -34,14 +34,12 @@ cd Online-Restaurant-Reservation-System-ORRS
 Install npm dependencies:
 
 ```
-cd Online-Restaurant-Reservation-System-ORRS
-cd restaurant-reservation/restaurant-reservation-client
+cd Online-Restaurant-Reservation-System-ORRS/restaurant-reservation-client
 npm install
 
 AND
 
-cd Online-Restaurant-Reservation-System-ORRS
-cd restaurant-reservation/restaurant-reservation-server
+cd Online-Restaurant-Reservation-System-ORRS/restaurant-reservation-server
 npm install
 
 ```
