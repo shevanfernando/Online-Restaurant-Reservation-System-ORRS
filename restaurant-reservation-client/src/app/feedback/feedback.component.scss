@@ -1,66 +1,87 @@
-// Standard styling, you can ignore this
-.backgroundColor{
-    margin: 0;
-    background: linear-gradient(to bottom, white 35%, #2b97fc 0%);      
-}
-.title{
-text-align: center; 
-color: #2b97fc;
-}
-.card{
-width: 50rem;
-border: none;
-}
-.header{
-background-color: #2b97fc; 
-color: white;
-}
-.btn-close{
-cursor: pointer;
-float: right;
-}
-.form-control{
-height: 300px;
-}
-textarea{
-background-color: #ebf7f6;
-}
-.send-btn{
-font-size: 25px;
-background-size: 100px; 
-height: 60px; 
-color: white;
-background-color: #2b97fc;
-}
-.form-check-label{
-font-size: 20px;
+.backgroundColor {
+  margin: 0;
+  background: linear-gradient(to bottom, white 35%, #07a132 0%);
 }
 
-// Custom radio buttons
-.feeling {
-&#smileys {
-    input[type="radio"] {
-        -webkit-appearance: none;
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-        filter: grayscale(100%);
-        margin: 0 25px;
-        
-        &:hover, &:checked {
-            filter:	grayscale(0);
-        }
-            
-        &.happy {
-            background: url('https://res.cloudinary.com/turdlife/image/upload/v1492864443/happy_ampvnc.svg');
-        }
-        
-        &.neutral {
-            background: url('https://res.cloudinary.com/turdlife/image/upload/v1492864443/neutral_t3q8hz.svg');
-        }
-        &.sad {
-            background: url('https://res.cloudinary.com/turdlife/image/upload/v1492864443/sad_bj1tuj.svg');
-        }
-    }
+.title {
+  text-align: center;
+  color: #07a132;
 }
+
+.card {
+  width: 50rem;
+  border: none;
+}
+
+.header {
+  background-color: #07a132;
+  color: white;
+}
+
+.btn-close {
+  cursor: pointer;
+  float: right;
+}
+
+.form-control {
+  height: 300px;
+}
+
+.feeling, .feedbackTypes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+textarea {
+  background-color: #f1fcf3;
+}
+
+.send-btn {
+  font-size: 25px;
+  background-size: 100px;
+  height: 60px;
+  color: white;
+  background-color: #07a132;
+}
+
+.form-check-label {
+  font-size: 20px;
+}
+
+.feeling {
+  &#smileys {
+    input[type="radio"] {
+      -webkit-appearance: none;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      filter: grayscale(100%);
+      margin: 0 25px;
+
+      &.happy {
+        background: url('https://res.cloudinary.com/turdlife/image/upload/v1492864443/happy_ampvnc.svg');
+      }
+
+      &.happy:hover, &:checked {
+        filter: grayscale(100%) brightness(80%) sepia(100%) hue-rotate(50deg) saturate(1000%) contrast(0.8);
+      }
+
+      &.neutral {
+        background: url('https://res.cloudinary.com/turdlife/image/upload/v1492864443/neutral_t3q8hz.svg');
+      }
+
+      &.neutral:hover, &.neutral:checked {
+        filter: grayscale(100%) brightness(120%) sepia(100%) hue-rotate(5deg) saturate(500%) contrast(0.8);
+      }
+
+      &.sad {
+        background: url('https://res.cloudinary.com/turdlife/image/upload/v1492864443/sad_bj1tuj.svg');
+      }
+
+      &.sad:hover, &.sad:checked {
+        filter: grayscale(100%) brightness(80%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+      }
+    }
+  }
 }

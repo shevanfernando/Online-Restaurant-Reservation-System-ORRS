@@ -1,72 +1,76 @@
 <div class="backgroundColor">
+  <br>
+  <div class="card container">
     <br>
-    <div class="card container">
+    <h1 class="title">Feedback Form</h1>
+    <br><br>
+
+    <h3 class="header">
+      <br>
+      <div class="container">
+        <button type="button" class="btn-close btn-close-white"></button>
         <br>
-        <h1 class="title">Feedback Form</h1>
+        {{'Send us your feedback!' | titlecase}}
         <br><br>
+        <h6>
+          Do you have a suggestion about our service or found some bugs in our services? <br>
+          Your feedback sends as anonymously, let us know your feedback here.
+        </h6>
+      </div>
+      <br><br>
+    </h3>
 
-        <h4 class="header">
-            <br>
-            <div class="container" >       
-                <button type="button" class="btn-close btn-close-white"></button>
-                <br>
-                Send Us Your Feedback!
-                <br><br>
-                <h6>
-                    Do you have a suggestion or found some bug?<br>
-                    let us know in the field bellow.
-                </h6>
-            </div>
-            <br><br>
-        </h4>
-        
-        <form>
-            <div class="container">
-                <h3>How was your experience?</h3><br>
-                <div class="feeling" id="smileys">
-                    <input type="radio" name="smiley" value="happy" class="happy" checked="checked">
-                    <input type="radio" name="smiley" value="sad" class="sad">
-                    <input type="radio" name="smiley" value="neutral" class="neutral">       
-                </div>
-            </div>
-            <br><br>
+    <form>
+      <div class="container">
+        <h4>How was your experience?</h4><br>
+        <div class="feeling" id="smileys">
+          <input type="radio" name="smiley" value="happy" class="happy">
+          <input type="radio" name="smiley" value="sad" class="sad">
+          <input type="radio" name="smiley" value="neutral" class="neutral">
+        </div>
+      </div>
+      <br><br>
 
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
-                <label for="floatingTextarea2">Describe Your experience here...</label>
-            </div>
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+        <label for="floatingTextarea2">Describe Your experience here...</label>
+      </div>
 
-            <br>
+      <br>
 
-            <div class="container">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Bug</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Suggestion</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <label class="form-check-label" for="inlineRadio3">Others</label>
-                </div>
-                <br><br>
-                <div class="d-grid gap-2">
-                    <button type="button" class="btn send-btn">Send Feedback</button>
-                    <br><br>
-                </div>
-            </div>
-        </form>
-    </div>
-    <br>
+      <div class="container">
+        <h4>Your feedback type?</h4>
+        <br>
+        <div class="feedbackTypes">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">Bug</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Suggestion</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+            <label class="form-check-label" for="inlineRadio3">Others</label>
+          </div>
+          <br><br>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn send-btn">Send Feedback</button>
+          <br><br>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
 </div>
 
 
 
 
 
-  
-  
+
+
 
 
