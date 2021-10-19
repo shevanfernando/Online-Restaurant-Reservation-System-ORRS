@@ -1,0 +1,120 @@
+<div class="container1">
+  <div class="forms-container">
+    <div class="signin-signup">
+      <form [formGroup]="loginForm" class="sign-in-form">
+        <h2 class="title">Sign in</h2>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Username" formControlName="username" />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" formControlName="password" />
+        </div>
+        <input type="submit" value="Login" class="btn solid" (click)="onClickLogin()" />
+        <p class="social-text">Or Sign in with social platforms</p>
+        <div class="social-media">
+          <a href="#" class="social-icon">
+            <i class="fab fa-google"></i>
+            oogle
+          </a>
+        </div>
+      </form>
+
+      <form action="#" class="sign-up-form">
+        <h2 class="title">Sign up</h2>
+        <div class="row mb-1">
+          <div class="col">
+            <div class="input-field1">
+              <input type="text" placeholder="First name" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-field1">
+              <input type="text" placeholder="Last name" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col">
+            <div class="input-field1">
+              <input type="text" placeholder="Phone Number" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-field1">
+              <input type="text" placeholder="NIC" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col">
+            <div class="input-field1">
+              <input type="email" placeholder="Email" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-field1">
+              <input type="text" placeholder="Username" />
+            </div>
+          </div>
+        </div>
+        <div class="row mb-1">
+          <div class="col">
+            <div class="input-field1">
+              <input type="password" placeholder="Password" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-field1">
+              <input type="password" placeholder="Conform Password" />
+            </div>
+          </div>
+        </div>
+
+        <input type="submit" class="btn" value="Sign up" />
+        <p class="social-text">Or Sign up with social platforms</p>
+        <div class="social-media">
+
+          <a href="#" class="social-icon">
+            <i class="fab fa-google"></i>
+            oogle
+          </a>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h3>Online Restaurant</h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+          ex ratione. Aliquid!
+        </p>
+        <button class="btn transparent" id="sign-up-btn" (click)="signUp()">
+          Sign up
+        </button>
+      </div>
+      <img src="../../assets/image/Hotel Booking-amico.svg" class="image" alt="" />
+    </div>
+    <div class="panel right-panel">
+      <div class="content">
+        <h3>Online Restaurant</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+          laboriosam ad deleniti.
+        </p>
+        <button class="btn transparent" id="sign-in-btn" (click)="signIn()">
+          Sign in
+        </button>
+      </div>
+      <img src="../../assets/image/Secure login-bro.svg" class="image" alt="" />
+    </div>
+  </div>
+</div>
