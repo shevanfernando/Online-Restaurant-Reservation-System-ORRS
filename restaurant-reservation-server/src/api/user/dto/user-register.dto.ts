@@ -1,3 +1,10 @@
+/**
+ * @created 26/09/2021 - 17:07
+ * @project Online-Restaurant-Reservation-System-ORRS
+ * @author  Shevan
+ * @file    user-register.dto
+ */
+
 import { UserType, StaffType } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 

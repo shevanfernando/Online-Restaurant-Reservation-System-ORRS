@@ -2,7 +2,7 @@
  * @created 26/09/2021 - 06:42
  * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
- * @file    user.router.ts
+ * @file    user.router
  */
 
 import { UserService } from '@api/user/UserService';

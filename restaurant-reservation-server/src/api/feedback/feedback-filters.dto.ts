@@ -1,14 +1,14 @@
 /**
  * @created 16/10/2021 - 12:18
- * @project settings.json
+ * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
- * @file    feedbackFiltersDTO
+ * @file    feedback-filters.dto
  */
 
 import Joi, { ValidationError } from 'joi';
 import { Experiance, FeedbackType } from '@prisma/client';
 
-export type FeedbackFiltersDTO = {
+export type FeedbackFiltersDto = {
   level?: Experiance;
   type?: FeedbackType;
   numberOfRecords: number;
@@ -25,7 +25,7 @@ const feedbackFilterDTOObject = Joi.object({
 }).required();
 
 export default {
-  validate: (data: unknown): { error?: ValidationError; value: FeedbackFiltersDTO } => {
+  validate: (data: unknown): { error?: ValidationError; value: FeedbackFiltersDto } => {
     return feedbackFilterDTOObject.validate(data, { abortEarly: false, stripUnknown: true });
   },
 };

@@ -1,15 +1,15 @@
 /**
  * @created 16/10/2021 - 08:17
- * @project settings.json
+ * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
  * @file    feedback.router
  */
 
 import { NextFunction, Request, Response, Router } from 'express';
-import feedbackDTO from './feedbackDTO';
+import feedbackDTO from './feedback.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';
-import feedbackService from './feedback-service';
-import feedbackFiltersService from '@api/feedback/feedbackFiltersDTO';
+import feedbackService from './feedback.service';
+import feedbackFiltersService from '@api/feedback/feedback-filters.dto';
 import { Feedback, Prisma, PrismaPromise } from '@prisma/client';
 import AuthGuard, { Roles } from '@middlewares/auth-guard';
 

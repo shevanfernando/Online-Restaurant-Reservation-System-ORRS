@@ -1,8 +1,8 @@
 /**
  * @created 11/10/2021 - 13:10
- * @project settings.json
+ * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
- * @file    victual.dto.ts
+ * @file    victual.dto
  */
 
 import Joi, { ValidationError } from 'joi';

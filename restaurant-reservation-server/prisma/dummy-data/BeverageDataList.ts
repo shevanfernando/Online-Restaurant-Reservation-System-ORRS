@@ -1,6 +1,6 @@
 /**
  * @created 11/10/2021 - 12:11
- * @project settings.json
+ * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
  * @file    BeverageData
  */
