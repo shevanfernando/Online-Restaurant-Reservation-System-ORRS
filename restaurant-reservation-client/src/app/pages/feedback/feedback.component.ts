@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FeedbackService } from '../services/feedback.service';
+import { FeedbackService } from '../../services/feedback.service';
 import alert from 'sweetalert2';
 
 export type FeedbackDTO = {

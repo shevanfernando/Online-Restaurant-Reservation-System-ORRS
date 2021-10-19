@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { FeedbackDTO } from '../feedback/feedback.component';
+import { FeedbackDTO } from '../pages/feedback/feedback.component';
 
 @Injectable({
   providedIn: 'root',
