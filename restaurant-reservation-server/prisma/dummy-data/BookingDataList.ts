@@ -1,6 +1,6 @@
 /**
  * @created 08/10/2021 - 18:00
- * @project settings.json
+ * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
  * @file    BookingDataList
  */
