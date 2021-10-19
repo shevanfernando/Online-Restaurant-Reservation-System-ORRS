@@ -40,7 +40,7 @@ export class UserService {
             if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person.firstName} ${tmp.Person.lastName}`,
-                [`staffId`]: tmp.customerId,
+                userId: tmp.customerId,
                 userType: user.userType,
               };
             }
@@ -54,7 +54,7 @@ export class UserService {
             if (tmp !== null) {
               this.payload = {
                 name: `${tmp.Person?.firstName} ${tmp.Person?.lastName}`,
-                [`staffId`]: tmp.staffId,
+                staffId: tmp.staffId,
                 userType: tmp.staffType,
               };
             }
