@@ -83,7 +83,7 @@ export class UserService {
           meta: { target },
         } = err;
         if (code === 'P2002') {
-          throw new HttpError(403, `${titleCaseConverter(target[0])} already exists.`);
+          throw new HttpError(409, `${titleCaseConverter(target[0])} already exists.`);
         }
       });
   }
@@ -106,7 +106,7 @@ export class UserService {
           meta: { target },
         } = err;
         if (code === 'P2002') {
-          throw new HttpError(403, `${titleCaseConverter(target[0])} already exists`);
+          throw new HttpError(409, `${titleCaseConverter(target[0])} already exists`);
         }
       });
   }
