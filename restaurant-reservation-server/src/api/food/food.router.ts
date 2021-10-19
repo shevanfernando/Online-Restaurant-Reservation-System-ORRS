@@ -10,21 +10,26 @@ import foodService from './food.service';
 import { foodFilterDTOObject } from '@api/food/food-filter.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';
 import { foodDTOObject } from '@api/food/food.dto';
+import AuthGuard, { Roles } from '@middlewares/auth-guard';
 
 const router = Router();
 
-router.post('/add-food', async (req: Request, res: Response, next: NextFunction) => {
-  const { error, value } = foodDTOObject.validate(req.body);
+router.post(
+  '/add-food',
+  AuthGuard([Roles.ADMIN, Roles.CHEF]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { error, value } = foodDTOObject.validate(req.body);
 
-  if (error) {
-    return next(new HttpValidationError(error));
+    if (error) {
+      return next(new HttpValidationError(error));
+    }
+
+    foodService
+      .addFood(value)
+      .then((result) => res.status(200).json(result))
+      .catch((err) => next(err));
   }
-
-  foodService
-    .addFood(value)
-    .then((result) => res.status(200).json(result))
-    .catch((err) => next(err));
-});
+);
 
 router.get('/get-food', async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = foodFilterDTOObject.validate(req.query);

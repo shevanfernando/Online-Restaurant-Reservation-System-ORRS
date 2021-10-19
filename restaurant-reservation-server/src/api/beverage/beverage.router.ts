@@ -10,21 +10,26 @@ import beverageService from './beverage.service';
 import { HttpValidationError } from '@lib/HttpValidationError';
 import { beverageDTOObject } from '@api/beverage/beverage.dto';
 import { beverageFilterDTOObject } from '@api/beverage/beverage-filter.dto';
+import AuthGuard, { Roles } from '@middlewares/auth-guard';
 
 const router = Router();
 
-router.post('/add-beverage', async (req: Request, res: Response, next: NextFunction) => {
-  const { error, value } = beverageDTOObject.validate(req.body);
+router.post(
+  '/add-beverage',
+  AuthGuard([Roles.ADMIN, Roles.CHEF]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { error, value } = beverageDTOObject.validate(req.body);
 
-  if (error) {
-    return next(new HttpValidationError(error));
+    if (error) {
+      return next(new HttpValidationError(error));
+    }
+
+    beverageService
+      .addBeverage(value)
+      .then((result) => res.status(200).json(result))
+      .catch((err) => next(err));
   }
-
-  beverageService
-    .addBeverage(value)
-    .then((result) => res.status(200).json(result))
-    .catch((err) => next(err));
-});
+);
 
 router.get('/get-beverage', async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = beverageFilterDTOObject.validate(req.query);
