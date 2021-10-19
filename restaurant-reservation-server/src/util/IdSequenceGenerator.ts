@@ -7,7 +7,7 @@
 import { PrismaClient } from '@prisma/client';
 
 const leadingZeros = (number: number): string => {
-  return String(number).padStart(7, '0');
+  return String(number).padStart(8, '0');
 };
 
 const idGenerator = async (stringLiterals: string, tableName: string): Promise<string> => {
