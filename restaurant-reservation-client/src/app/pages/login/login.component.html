@@ -3,15 +3,38 @@
     <div class="signin-signup">
       <form [formGroup]="loginForm" class="sign-in-form">
         <h2 class="title">Sign in</h2>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="errorMessages !== undefined"
+        >
+          {{ errorMessages }}
+        </div>
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" formControlName="username" />
+          <input
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+            (change)="onInputFieldsChnage()"
+          />
         </div>
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" formControlName="password" />
+          <input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            (change)="onInputFieldsChnage()"
+          />
         </div>
-        <input type="submit" value="Login" class="btn solid" (click)="onClickLogin()" />
+
+        <input
+          type="submit"
+          value="Login"
+          class="btn solid"
+          (click)="onClickLogin()"
+        />
         <p class="social-text">Or Sign in with social platforms</p>
         <div class="social-media">
           <a href="#" class="social-icon">
@@ -23,6 +46,9 @@
 
       <form action="#" class="sign-up-form">
         <h2 class="title">Sign up</h2>
+        <div class="alert alert-danger" role="alert">
+          Username/Password is Incorrect
+        </div>
         <div class="row mb-1">
           <div class="col">
             <div class="input-field1">
@@ -77,15 +103,12 @@
         <input type="submit" class="btn" value="Sign up" />
         <p class="social-text">Or Sign up with social platforms</p>
         <div class="social-media">
-
           <a href="#" class="social-icon">
             <i class="fab fa-google"></i>
             oogle
           </a>
-
         </div>
       </form>
-
     </div>
   </div>
 
@@ -94,14 +117,18 @@
       <div class="content">
         <h3>Online Restaurant</h3>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-          ex ratione. Aliquid!
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex
+          ratione. Aliquid!
         </p>
         <button class="btn transparent" id="sign-up-btn" (click)="signUp()">
           Sign up
         </button>
       </div>
-      <img src="../../assets/image/Hotel Booking-amico.svg" class="image" alt="" />
+      <img
+        src="../../assets/image/Hotel Booking-amico.svg"
+        class="image"
+        alt=""
+      />
     </div>
     <div class="panel right-panel">
       <div class="content">
