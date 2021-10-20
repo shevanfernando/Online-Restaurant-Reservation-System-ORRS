@@ -59,7 +59,7 @@ export class AuthService implements OnDestroy {
   }
 
   decodeToken(): void {
-    const token = AuthService._getToken();
+    const token = this.getToken();
     if (token) {
       const decodeData = this.helper.decodeToken(token);
       this.user.next(decodeData.data);
@@ -67,8 +67,12 @@ export class AuthService implements OnDestroy {
   }
 
   isTokenExpired(): boolean | void {
-    const token = AuthService._getToken();
+    const token = this.getToken();
     if (token) return this.helper.isTokenExpired(token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   private _storageEventListener(event: StorageEvent): void {
@@ -81,9 +85,5 @@ export class AuthService implements OnDestroy {
         location.reload();
       }
     }
-  }
-
-  private static _getToken(): string | null {
-    return localStorage.getItem('token');
   }
 }
