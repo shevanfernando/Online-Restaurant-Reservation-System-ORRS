@@ -16,7 +16,7 @@
             type="text"
             placeholder="Username"
             formControlName="username"
-            (change)="onInputFieldsChnage()"
+            (change)="onInputFieldsChange()"
           />
         </div>
         <div class="input-field">
@@ -25,7 +25,7 @@
             type="password"
             placeholder="Password"
             formControlName="password"
-            (change)="onInputFieldsChnage()"
+            (change)="onInputFieldsChange()"
           />
         </div>
 
@@ -44,20 +44,34 @@
         </div>
       </form>
 
-      <form action="#" class="sign-up-form">
+      <form [formGroup]="registrationForm" class="sign-up-form">
         <h2 class="title">Sign up</h2>
-        <div class="alert alert-danger" role="alert">
-          Username/Password is Incorrect
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="errorMessages !== undefined"
+        >
+          {{ errorMessages }}
         </div>
         <div class="row mb-1">
           <div class="col">
             <div class="input-field1">
-              <input type="text" placeholder="First name" />
+              <input
+                type="text"
+                placeholder="First name"
+                formControlName="firstName"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
           <div class="col">
             <div class="input-field1">
-              <input type="text" placeholder="Last name" />
+              <input
+                type="text"
+                placeholder="Last name"
+                formControlName="lastName"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
         </div>
@@ -65,12 +79,22 @@
         <div class="row mb-1">
           <div class="col">
             <div class="input-field1">
-              <input type="text" placeholder="Phone Number" />
+              <input
+                type="text"
+                placeholder="Phone Number"
+                formControlName="phoneNumber"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
           <div class="col">
             <div class="input-field1">
-              <input type="text" placeholder="NIC" />
+              <input
+                type="text"
+                placeholder="NIC"
+                formControlName="nic"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
         </div>
@@ -78,29 +102,54 @@
         <div class="row mb-1">
           <div class="col">
             <div class="input-field1">
-              <input type="email" placeholder="Email" />
+              <input
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
           <div class="col">
             <div class="input-field1">
-              <input type="text" placeholder="Username" />
+              <input
+                type="text"
+                placeholder="Username"
+                formControlName="username"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
         </div>
         <div class="row mb-1">
           <div class="col">
             <div class="input-field1">
-              <input type="password" placeholder="Password" />
+              <input
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
           <div class="col">
             <div class="input-field1">
-              <input type="password" placeholder="Conform Password" />
+              <input
+                type="password"
+                placeholder="Conform Password"
+                formControlName="confirmPassword"
+                (change)="onInputFieldsChange()"
+              />
             </div>
           </div>
         </div>
 
-        <input type="submit" class="btn" value="Sign up" />
+        <input
+          type="submit"
+          class="btn"
+          value="Sign up"
+          (click)="onClickSignUp()"
+        />
         <p class="social-text">Or Sign up with social platforms</p>
         <div class="social-media">
           <a href="#" class="social-icon">
@@ -124,11 +173,7 @@
           Sign up
         </button>
       </div>
-      <img
-        src="../../assets/image/Hotel Booking-amico.svg"
-        class="image"
-        alt=""
-      />
+      <img src="./assets/image/Hotel Booking-amico.svg" class="image" alt="" />
     </div>
     <div class="panel right-panel">
       <div class="content">
@@ -141,7 +186,7 @@
           Sign in
         </button>
       </div>
-      <img src="../../assets/image/Secure login-bro.svg" class="image" alt="" />
+      <img src="./assets/image/Secure login-bro.svg" class="image" alt="" />
     </div>
   </div>
 </div>
