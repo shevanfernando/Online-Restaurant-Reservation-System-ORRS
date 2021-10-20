@@ -1,9 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserService } from '../../services/user.service';
 
 export const userType = {
   CUSTOMER: 'CUSTOMER',
@@ -26,12 +25,10 @@ export type IUser = {
 export class AuthService implements OnDestroy {
   user = new BehaviorSubject<IUser | null>(null);
 
-  private _API: string;
   private helper: JwtHelperService;
 
-  constructor(private http: HttpClient) {
+  constructor(private userService: UserService) {
     window.addEventListener('storage', this._storageEventListener.bind(this));
-    this._API = `${environment.API}/user`;
     this.helper = new JwtHelperService();
   }
 
@@ -43,7 +40,7 @@ export class AuthService implements OnDestroy {
   }
 
   signIn(data: { username: string; password: string }): Observable<void> {
-    return this.http.post<string>(`${this._API}/login`, data).pipe(
+    return this.userService.signIn(data).pipe(
       map((res: string) => {
         localStorage.setItem('token', res);
         localStorage.setItem('login-event', 'login ' + Date.now());
