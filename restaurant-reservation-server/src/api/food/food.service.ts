@@ -10,6 +10,8 @@ import sequenceGenerator from '@util/IdSequenceGenerator';
 import { HttpError } from '@lib/HttpError';
 import titleCaseConverter from '@util/title-case-converter';
 import { FoodFilterDTO } from '@api/food/food-filter.dto';
+import { FoodUpdateDTO } from '@api/food/food-update.dto';
+import { ItemDeleteDTO } from '@api/shared/item-delete.dto';
 
 const prisma = new PrismaClient();
 
@@ -34,6 +36,35 @@ const addFood = async (data: FoodDTO): Promise<Prisma.Prisma__FoodClient<Food> |
       if (code === 'P2002') {
         throw new HttpError(409, `${titleCaseConverter(target[0])} already exists.`);
       }
+    });
+};
+
+const updateFood = async (data: FoodUpdateDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
+  return prisma.food.update({
+    where: { foodId: data.foodId },
+    data: {
+      foodType: data.foodType,
+      Victual: {
+        update: data.victual,
+      },
+    },
+  });
+};
+
+const deleteFood = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
+  return prisma.food
+    .delete({
+      where: { foodId: data.id },
+    })
+    .then((res) => {
+      prisma.victual.delete({ where: { victualId: res.victualId } });
+    })
+    .catch((err) => {
+      const { code } = err;
+      if (code === 'P2025') {
+        throw new HttpError(404, "Can't find any Food item using this food id.");
+      }
+      return err;
     });
 };
 
@@ -69,7 +100,13 @@ const filterFoods = async (
     },
   });
 
-  if (food.length !== 0) return food;
+  if (food.length !== 0)
+    return food.map((res) => {
+      if (res.Victual.imagePath) {
+        res.Victual.imagePath = `images/${res.Victual.imagePath}`;
+        return res;
+      } else return res;
+    });
 
   let errorFields;
 
@@ -87,5 +124,7 @@ const filterFoods = async (
 
 export default {
   addFood,
+  updateFood,
+  deleteFood,
   filterFoods,
 };
