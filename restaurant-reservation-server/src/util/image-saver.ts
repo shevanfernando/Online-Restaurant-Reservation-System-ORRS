@@ -35,7 +35,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, callback: FileFilte
     callback(null, true);
   } else {
     callback(
-      new HttpError(400, 'Uploaded Image is not a valid type, only allowed these "jpg/jpeg or png" image types.')
+      new HttpError(400, 'Uploaded Image is not a valid type, only allowed these "jpg/ jpeg or png" image types.')
     );
   }
 };
