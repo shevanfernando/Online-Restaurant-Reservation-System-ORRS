@@ -22,7 +22,7 @@ export type BeverageFilterDTO = {
 };
 
 export const beverageFilterDTOObject = Joi.object({
-  foodId: Joi.string().length(12).messages({
+  beverageId: Joi.string().length(12).messages({
     'string.base': `Beverage Id should be a type of 'string'`,
     'string.empty': `Beverage Id cannot be an empty field`,
     'string.length': `Beverage Id should have a {#limit} characters.`,
@@ -30,7 +30,7 @@ export const beverageFilterDTOObject = Joi.object({
   name: Joi.string().min(2).messages({
     'string.base': 'Name should be a type of "string"',
     'string.empty': 'Name cannot be an empty field',
-    'string.min': `Name should have have a minimum length of {#limit}`,
+    'string.min': `Name should have a minimum length of {#limit}`,
   }),
   beverageType: Joi.valid(
     BeverageType.BEER,
