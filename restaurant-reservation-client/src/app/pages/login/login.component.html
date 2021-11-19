@@ -1,6 +1,7 @@
 <div class="container1">
   <div class="forms-container">
     <div class="signin-signup">
+      <!--      login form-->
       <form [formGroup]="loginForm" class="sign-in-form">
         <h2 class="title">Sign in</h2>
         <div
@@ -28,7 +29,6 @@
             (change)="onInputFieldsChange()"
           />
         </div>
-
         <input
           type="submit"
           value="Login"
@@ -44,6 +44,7 @@
         </div>
       </form>
 
+      <!--      registration form-->
       <form [formGroup]="registrationForm" class="sign-up-form">
         <h2 class="title">Sign up</h2>
         <div

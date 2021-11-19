@@ -79,8 +79,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.signIn(this.loginForm.value).subscribe(
         () => {
-          //TODO: Add redirect Path
-          console.log('Save');
+          this.router.navigateByUrl('/reservation');
         },
         (err) => {
           this.errorMessages = err.error.message;
