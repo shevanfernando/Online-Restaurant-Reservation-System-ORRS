@@ -7,7 +7,7 @@
 
 import Joi, { ValidationError } from 'joi';
 import { FoodType } from '@prisma/client';
-import { VictualDTO, victualDTOObject } from '@api/shared/victual.dto';
+import { VictualDTO, victualDTOObject } from '@api/shared/victual/victual.dto';
 
 export type FoodDTO = {
   foodType: FoodType;

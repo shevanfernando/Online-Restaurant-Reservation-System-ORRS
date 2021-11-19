@@ -17,13 +17,13 @@ export type FoodFilterDTO = {
 export const foodFilterDTOObject = Joi.object({
   foodId: Joi.string().length(12).messages({
     'string.base': `Food Id should be a type of 'string'`,
-    'string.empty': `Food Id cannot be an empty field`,
+    'string.empty': 'Food Id cannot be an empty field',
     'string.length': `Food Id should have a {#limit} characters.`,
   }),
   name: Joi.string().min(2).messages({
     'string.base': 'Name should be a type of "string"',
     'string.empty': 'Name cannot be an empty field',
-    'string.min': `Name should have have a minimum length of {#limit}`,
+    'string.min': `Name should have a minimum length of {#limit}`,
   }),
   foodType: Joi.valid(FoodType.DESSERTS, FoodType.MAIN_COURSES, FoodType.SIDE_DISHES, FoodType.STARTERS).messages({
     'any.only': `Food Type is allowed only, {#valids}`,
