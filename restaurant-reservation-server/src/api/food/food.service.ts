@@ -12,6 +12,7 @@ import titleCaseConverter from '@util/title-case-converter';
 import { FoodFilterDTO } from '@api/food/food-filter.dto';
 import { FoodUpdateDTO } from '@api/food/food-update.dto';
 import { ItemDeleteDTO } from '@api/shared/item-delete.dto';
+import { foodPaginationDTO, paginationFunc } from '@api/shared/pagination.dto';
 
 const prisma = new PrismaClient();
 
@@ -68,23 +69,11 @@ const deleteFood = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__FoodClien
     });
 };
 
-const filterFoods = async (
-  data: FoodFilterDTO
-): Promise<
-  | {
-      foodType: string;
-      victualId: number;
-      Victual: {
-        victualId: number;
-        name: string;
-        description: string;
-        price: number;
-        imagePath: string | null;
-      };
-    }[]
-  | void
-> => {
-  const food = await prisma.food.findMany({
+const filterFoods = async (data: FoodFilterDTO): Promise<foodPaginationDTO | void> => {
+  const start = (data.page_no - 1) * data.per_page;
+  let food = await prisma.food.findMany({
+    skip: start,
+    take: data.per_page,
     where: {
       foodId: data.foodId,
       foodType: data.foodType,
@@ -98,15 +87,40 @@ const filterFoods = async (
       victualId: true,
       Victual: true,
     },
+    orderBy: [
+      {
+        victualId: 'asc',
+      },
+    ],
   });
 
-  if (food.length !== 0)
-    return food.map((res) => {
+  if (food.length !== 0) {
+    const total = await prisma.food.count({
+      where: {
+        foodId: data.foodId,
+        foodType: data.foodType,
+        Victual: {
+          name: data.name,
+          price: data.price,
+        },
+      },
+    });
+    food = food.map((res) => {
       if (res.Victual.imagePath) {
         res.Victual.imagePath = `images/${res.Victual.imagePath}`;
         return res;
       } else return res;
     });
+    return {
+      pagination: paginationFunc({
+        total_rec: total,
+        per_page: data.per_page,
+        cr_num_data: food.length,
+        page_no: data.page_no,
+      }),
+      data: food,
+    };
+  }
 
   let errorFields;
 
@@ -119,7 +133,10 @@ const filterFoods = async (
 
   if (data.price) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''}price = ${data.price}`;
 
-  throw new HttpError(404, `Can't find any food with {${errorFields}}.`);
+  throw new HttpError(
+    404,
+    errorFields === undefined ? "Can't find any matching food." : `Can't find any food with {${errorFields}}.`
+  );
 };
 
 export default {
