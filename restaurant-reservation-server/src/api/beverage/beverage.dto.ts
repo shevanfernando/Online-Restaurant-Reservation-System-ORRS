@@ -15,22 +15,10 @@ export type BeverageDTO = {
 };
 
 export const beverageDTOObject = Joi.object({
-  beverageType: Joi.valid(
-    BeverageType.BEER,
-    BeverageType.BRANDY,
-    BeverageType.RUM,
-    BeverageType.VINE,
-    BeverageType.VODKA,
-    BeverageType.REFRESHING,
-    BeverageType.NOURISHING,
-    BeverageType.STIMULATING,
-    BeverageType.WHISKY
-  )
-    .required()
-    .messages({
-      'any.only': `Beverage Type is allowed only, {#valids}`,
-      'any.required': 'Beverage Type is required',
-    }),
+  beverageType: Joi.valid({ BeverageType }).required().messages({
+    'any.only': `Beverage Type is allowed only, {#valids}`,
+    'any.required': 'Beverage Type is required',
+  }),
   victual: victualDTOObject,
 }).required();
 

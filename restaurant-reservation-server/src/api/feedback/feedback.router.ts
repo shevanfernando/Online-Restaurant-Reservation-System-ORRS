@@ -15,7 +15,7 @@ import AuthGuard, { Roles } from '@middlewares/auth-guard';
 
 const router = Router();
 
-router.post('/create-feedback', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/create', async (req: Request, res: Response, next: NextFunction) => {
   const { value, error } = feedbackDTO.validate(req.body);
 
   if (error) {
@@ -24,11 +24,11 @@ router.post('/create-feedback', async (req: Request, res: Response, next: NextFu
 
   await feedbackService
     .createNewFeedback(value)
-    .then((result: Prisma.Prisma__FeedbackClient<Feedback>) => res.status(200).send())
+    .then(() => res.status(200).send())
     .catch((err) => next(err));
 });
 
-router.get('/get-feedbacks', AuthGuard([Roles.ADMIN]), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/get', AuthGuard([Roles.ADMIN]), async (req: Request, res: Response, next: NextFunction) => {
   const { error, value } = feedbackFiltersService.validate(req.query);
   if (error) {
     return next(new HttpValidationError(error));

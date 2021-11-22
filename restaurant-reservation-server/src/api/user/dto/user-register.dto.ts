@@ -98,9 +98,7 @@ export const customerRegisterDTOObject = Joi.object({
 export const staffRegisterDTOObject = Joi.object({
   person: personDTOObject,
   user: userDTOObject(UserType.STAFF),
-  staffType: Joi.valid(StaffType.CHEF, StaffType.RECEPTIONIST, StaffType.WAITER)
-    .required()
-    .messages({ 'any.only': `Staff Type is allow only, {#valids}` }),
+  staffType: Joi.valid({ StaffType }).required().messages({ 'any.only': `Staff Type is allow only, {#valids}` }),
 }).required();
 
 export default {

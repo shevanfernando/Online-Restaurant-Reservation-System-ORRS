@@ -116,16 +116,16 @@ model Order {
 }
 
 model Table {
-  tableId       String     @id
-  tableType     TableTypes
+  tableId       String    @id
+  tableType     TableType
   numberOfSeats Int
-  Order         Order?     @relation(fields: [orderId], references: [orderId])
+  Order         Order?    @relation(fields: [orderId], references: [orderId])
   orderId       String?
-  Booking       Booking?   @relation(fields: [bookingId], references: [bookingId])
+  Booking       Booking?  @relation(fields: [bookingId], references: [bookingId])
   bookingId     String?
 }
 
-enum TableTypes {
+enum TableType {
   NORMAL
   RESERVATION
 }

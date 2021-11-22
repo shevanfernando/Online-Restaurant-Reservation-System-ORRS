@@ -15,12 +15,10 @@ export type FoodDTO = {
 };
 
 export const foodDTOObject = Joi.object({
-  foodType: Joi.valid(FoodType.DESSERTS, FoodType.MAIN_COURSES, FoodType.SIDE_DISHES, FoodType.STARTERS)
-    .required()
-    .messages({
-      'any.only': `Food Type is allowed only, {#valids}`,
-      'any.required': 'Food Type is required',
-    }),
+  foodType: Joi.valid({ FoodType }).required().messages({
+    'any.only': `Food Type is allowed only, {#valids}`,
+    'any.required': 'Food Type is required',
+  }),
   victual: victualDTOObject,
 }).required();
 

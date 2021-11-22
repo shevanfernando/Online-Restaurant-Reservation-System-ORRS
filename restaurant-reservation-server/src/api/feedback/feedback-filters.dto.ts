@@ -15,10 +15,10 @@ export type FeedbackFiltersDto = {
 };
 
 const feedbackFilterDTOObject = Joi.object({
-  level: Joi.valid(Experiance.POOR, Experiance.AVERAGE, Experiance.GOOD).messages({
+  level: Joi.valid({ Experiance }).messages({
     'any.only': `Level of Experience is allowed only, {#valids}`,
   }),
-  type: Joi.valid(FeedbackType.BUG, FeedbackType.OTHER, FeedbackType.SUGGESTION).messages({
+  type: Joi.valid({ FeedbackType }).messages({
     'any.only': `Feedback Type is allowed only, {#valids}`,
   }),
   numberOfRecords: Joi.number().messages({ 'number.base': `Number of Records should be a type of 'number'` }),

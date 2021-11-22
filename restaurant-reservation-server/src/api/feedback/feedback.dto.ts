@@ -24,9 +24,7 @@ const feedbackDTOObject = Joi.object({
     'string.min': `Feedback Description should have min length of {#limit}`,
     'any.required': 'Feedback Description is required',
   }),
-  type: Joi.valid(FeedbackType.BUG, FeedbackType.OTHER, FeedbackType.SUGGESTION)
-    .required()
-    .messages({ 'any.only': `Feedback Type is allowed only, {#valids}` }),
+  type: Joi.valid({ FeedbackType }).required().messages({ 'any.only': `Feedback Type is allowed only, {#valids}` }),
 }).required();
 
 export default {
