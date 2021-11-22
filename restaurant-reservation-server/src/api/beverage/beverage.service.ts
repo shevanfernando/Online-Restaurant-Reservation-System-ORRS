@@ -42,15 +42,23 @@ const addBeverage = async (data: BeverageDTO): Promise<Prisma.Prisma__BeverageCl
 };
 
 const updateBeverage = async (data: BeverageUpdateDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
-  return prisma.beverage.update({
-    where: { beverageId: data.beverageId },
-    data: {
-      beverageType: data.beverageType,
-      Victual: {
-        update: data.victual,
+  return prisma.beverage
+    .update({
+      where: { beverageId: data.beverageId },
+      data: {
+        beverageType: data.beverageType,
+        Victual: {
+          update: data.victual,
+        },
       },
-    },
-  });
+    })
+    .catch((err) => {
+      const { code } = err;
+      if (code === 'P2025') {
+        throw new HttpError(404, "Can't find any Beverage item using this beverage id.");
+      }
+      return err;
+    });
 };
 
 const deleteBeverage = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
@@ -64,7 +72,7 @@ const deleteBeverage = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__Bever
     .catch((err) => {
       const { code } = err;
       if (code === 'P2025') {
-        throw new HttpError(404, "Can't find any Beverage item using this food id.");
+        throw new HttpError(404, "Can't find any Beverage item using this beverage id.");
       }
       return err;
     });

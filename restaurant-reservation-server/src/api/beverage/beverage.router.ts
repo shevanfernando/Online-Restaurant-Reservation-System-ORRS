@@ -52,7 +52,7 @@ router.put('/update', AuthGuard([Roles.ADMIN, Roles.CHEF]), async (req: Request,
 
   beverageService
     .updateBeverage(value)
-    .then((result) => res.status(200).json(result))
+    .then((result) => res.status(204).json(result))
     .catch((err) => next(err));
 });
 

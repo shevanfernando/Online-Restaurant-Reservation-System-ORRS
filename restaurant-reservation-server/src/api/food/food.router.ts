@@ -16,6 +16,8 @@ import upload from '@util/image-saver';
 import { imageSaveDTOObject } from '@api/shared/victual/image-save.dto';
 import victualService from '@api/shared/victual/victual.service';
 import { itemDeleteDTO } from '@api/shared/item-delete.dto';
+import { Food, Prisma } from '@prisma/client';
+import { foodPaginationDTO } from '@api/shared/pagination.dto';
 
 const router = Router();
 // TODO: implement image save feature and image fetch feature
@@ -28,7 +30,7 @@ router.post('/add', AuthGuard([Roles.ADMIN, Roles.CHEF]), async (req: Request, r
 
   foodService
     .addFood(value)
-    .then((result) => res.status(201).json(result))
+    .then((result: Prisma.Prisma__FoodClient<Food> | void) => res.status(201).json(result))
     .catch((err) => next(err));
 });
 
@@ -39,7 +41,7 @@ router.get('/get', async (req: Request, res: Response, next: NextFunction) => {
   }
   foodService
     .filterFoods(value)
-    .then((result) => res.status(200).json(result))
+    .then((result: foodPaginationDTO | void) => res.status(200).json(result))
     .catch((err) => next(err));
 });
 
@@ -52,7 +54,7 @@ router.put('/update', AuthGuard([Roles.ADMIN, Roles.CHEF]), async (req: Request,
 
   foodService
     .updateFood(value)
-    .then((result) => res.status(200).json(result))
+    .then((result) => res.status(204).json(result))
     .catch((err) => next(err));
 });
 

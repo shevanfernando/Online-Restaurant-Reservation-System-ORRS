@@ -41,15 +41,23 @@ const addFood = async (data: FoodDTO): Promise<Prisma.Prisma__FoodClient<Food> |
 };
 
 const updateFood = async (data: FoodUpdateDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
-  return prisma.food.update({
-    where: { foodId: data.foodId },
-    data: {
-      foodType: data.foodType,
-      Victual: {
-        update: data.victual,
+  return prisma.food
+    .update({
+      where: { foodId: data.foodId },
+      data: {
+        foodType: data.foodType,
+        Victual: {
+          update: data.victual,
+        },
       },
-    },
-  });
+    })
+    .catch((err) => {
+      const { code } = err;
+      if (code === 'P2025') {
+        throw new HttpError(404, "Can't find any Food item using this food id.");
+      }
+      return err;
+    });
 };
 
 const deleteFood = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
@@ -59,13 +67,6 @@ const deleteFood = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__FoodClien
     })
     .then((res) => {
       prisma.victual.delete({ where: { victualId: res.victualId } });
-    })
-    .catch((err) => {
-      const { code } = err;
-      if (code === 'P2025') {
-        throw new HttpError(404, "Can't find any Food item using this food id.");
-      }
-      return err;
     });
 };
 
