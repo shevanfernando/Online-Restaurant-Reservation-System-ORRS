@@ -8,6 +8,8 @@ import { FoodType } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type FoodFilterDTO = {
+  page_no: number;
+  per_page: number;
   foodId?: string;
   name?: string;
   foodType?: FoodType;
@@ -15,6 +17,16 @@ export type FoodFilterDTO = {
 };
 
 export const foodFilterDTOObject = Joi.object({
+  page_no: Joi.number().positive().required().messages({
+    'number.base': 'Page number should be a type of "number"',
+    'number.positive': 'Page number should be a positive amount',
+    'any.required': 'Page number is required',
+  }),
+  per_page: Joi.number().positive().required().messages({
+    'number.base': 'Per-Page should be a type of "number"',
+    'number.positive': 'Per-Page no should be a positive amount',
+    'any.required': 'Per-Page no is required',
+  }),
   foodId: Joi.string().length(12).messages({
     'string.base': `Food Id should be a type of 'string'`,
     'string.empty': 'Food Id cannot be an empty field',
@@ -31,7 +43,6 @@ export const foodFilterDTOObject = Joi.object({
   price: Joi.number().positive().messages({
     'number.base': 'Prise should be a type of "number"',
     'number.positive': 'Prise should be a positive amount',
-    'any.required': 'Prise is required',
   }),
 }).required();
 
