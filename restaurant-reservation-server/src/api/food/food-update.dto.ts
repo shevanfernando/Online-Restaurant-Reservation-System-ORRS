@@ -2,7 +2,7 @@
  * @created 17/11/2021
  * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
- * @file    food-update.dto.ts
+ * @file    food-update.dto
  */
 
 import Joi, { ValidationError } from 'joi';
