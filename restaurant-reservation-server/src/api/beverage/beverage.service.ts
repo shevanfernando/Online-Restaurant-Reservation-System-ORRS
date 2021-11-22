@@ -11,6 +11,9 @@ import { HttpError } from '@lib/HttpError';
 import titleCaseConverter from '@util/title-case-converter';
 import { BeverageDTO } from '@api/beverage/beverage.dto';
 import { BeverageFilterDTO } from '@api/beverage/beverage-filter.dto';
+import { ItemDeleteDTO } from '@api/shared/item-delete.dto';
+import { BeverageUpdateDTO } from '@api/beverage/beverage-update.dto';
+import { beveragePaginationDTO, paginationFunc } from '@api/shared/pagination.dto';
 
 const prisma = new PrismaClient();
 
@@ -38,23 +41,40 @@ const addBeverage = async (data: BeverageDTO): Promise<Prisma.Prisma__BeverageCl
     });
 };
 
-const filterBeverage = async (
-  data: BeverageFilterDTO
-): Promise<
-  | {
-      beverageType: string;
-      victualId: number;
+const updateBeverage = async (data: BeverageUpdateDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
+  return prisma.beverage.update({
+    where: { beverageId: data.beverageId },
+    data: {
+      beverageType: data.beverageType,
       Victual: {
-        victualId: number;
-        name: string;
-        description: string;
-        price: number;
-        imagePath: string | null;
-      };
-    }[]
-  | void
-> => {
-  const beverage = await prisma.beverage.findMany({
+        update: data.victual,
+      },
+    },
+  });
+};
+
+const deleteBeverage = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
+  return prisma.beverage
+    .delete({
+      where: { beverageId: data.id },
+    })
+    .then((res) => {
+      prisma.victual.delete({ where: { victualId: res.victualId } });
+    })
+    .catch((err) => {
+      const { code } = err;
+      if (code === 'P2025') {
+        throw new HttpError(404, "Can't find any Beverage item using this food id.");
+      }
+      return err;
+    });
+};
+
+const filterBeverage = async (data: BeverageFilterDTO): Promise<beveragePaginationDTO | void> => {
+  const start = (data.page_no - 1) * data.per_page;
+  let beverage = await prisma.beverage.findMany({
+    skip: start,
+    take: data.per_page,
     where: {
       beverageId: data.beverageId,
       beverageType: data.beverageType,
@@ -68,9 +88,40 @@ const filterBeverage = async (
       victualId: true,
       Victual: true,
     },
+    orderBy: [
+      {
+        victualId: 'asc',
+      },
+    ],
   });
 
-  if (beverage.length !== 0) return beverage;
+  if (beverage.length !== 0) {
+    const total = await prisma.beverage.count({
+      where: {
+        beverageId: data.beverageId,
+        beverageType: data.beverageType,
+        Victual: {
+          name: data.name,
+          price: data.price,
+        },
+      },
+    });
+    beverage = beverage.map((res) => {
+      if (res.Victual.imagePath) {
+        res.Victual.imagePath = `images/${res.Victual.imagePath}`;
+        return res;
+      } else return res;
+    });
+    return {
+      pagination: paginationFunc({
+        total_rec: total,
+        per_page: data.per_page,
+        cr_num_data: beverage.length,
+        page_no: data.page_no,
+      }),
+      data: beverage,
+    };
+  }
 
   let errorFields;
 
@@ -83,10 +134,15 @@ const filterBeverage = async (
 
   if (data.price) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''}price = ${data.price}`;
 
-  throw new HttpError(404, `Can't find any beverage with {${errorFields}}.`);
+  throw new HttpError(
+    404,
+    errorFields === undefined ? "Can't find any matching beverage." : `Can't find any beverage with {${errorFields}}.`
+  );
 };
 
 export default {
   addBeverage,
   filterBeverage,
+  updateBeverage,
+  deleteBeverage,
 };
