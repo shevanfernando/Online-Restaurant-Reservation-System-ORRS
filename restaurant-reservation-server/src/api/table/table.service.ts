@@ -5,11 +5,11 @@
  * @file    table.service
  */
 import { Prisma, PrismaClient, PrismaPromise, Table } from '@prisma/client';
-import { TableDTO } from '@api/table/table.dto';
+import { TableDTO } from '@api/table/dto/table.dto';
 import sequenceGenerator from '@util/IdSequenceGenerator';
 import { HttpError } from '@lib/HttpError';
-import { FilterTableDTO } from '@api/table/filter-table.dto';
-import { FreeTableDTO } from '@api/table/free-table.dto';
+import { FilterTableDTO } from '@api/table/dto/filter-table.dto';
+import { FreeTableDTO } from '@api/table/dto/free-table.dto';
 
 const prisma = new PrismaClient();
 

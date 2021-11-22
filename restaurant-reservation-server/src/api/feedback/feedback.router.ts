@@ -6,12 +6,12 @@
  */
 
 import { NextFunction, Request, Response, Router } from 'express';
-import feedbackDTO from './feedback.dto';
+import feedbackDTO from './dto/feedback.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';
 import feedbackService from './feedback.service';
-import feedbackFiltersService from '@api/feedback/feedback-filters.dto';
-import { Feedback, Prisma, PrismaPromise } from '@prisma/client';
+import feedbackFiltersService from '@api/feedback/dto/feedback-filters.dto';
 import AuthGuard, { Roles } from '@middlewares/auth-guard';
+import { feedbackPaginationDTO } from '@api/shared/dto/pagination.dto';
 
 const router = Router();
 
@@ -35,7 +35,7 @@ router.get('/get', AuthGuard([Roles.ADMIN]), async (req: Request, res: Response,
   }
   await feedbackService
     .getFeedbackByFilters(value)
-    .then((result: PrismaPromise<Array<Feedback>>) => res.status(200).json(result))
+    .then((result: feedbackPaginationDTO | void) => res.status(200).json(result))
     .catch((err) => next(err));
 });
 

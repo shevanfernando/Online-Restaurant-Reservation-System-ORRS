@@ -7,17 +7,17 @@
 
 import { NextFunction, Request, Response, Router } from 'express';
 import foodService from './food.service';
-import { foodFilterDTOObject } from '@api/food/food-filter.dto';
+import { foodFilterDTOObject } from '@api/food/dto/food-filter.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';
-import { foodDTOObject } from '@api/food/food.dto';
+import { foodDTOObject } from '@api/food/dto/food.dto';
 import AuthGuard, { Roles } from '@middlewares/auth-guard';
-import { foodUpdateDTOObject } from '@api/food/food-update.dto';
+import { foodUpdateDTOObject } from '@api/food/dto/food-update.dto';
 import upload from '@util/image-saver';
-import { imageSaveDTOObject } from '@api/shared/victual/image-save.dto';
+import { imageSaveDTOObject } from '@api/shared/victual/dto/image-save.dto';
 import victualService from '@api/shared/victual/victual.service';
-import { itemDeleteDTO } from '@api/shared/item-delete.dto';
+import { itemDeleteDTO } from '@api/shared/dto/item-delete.dto';
 import { Food, Prisma } from '@prisma/client';
-import { foodPaginationDTO } from '@api/shared/pagination.dto';
+import { foodPaginationDTO } from '@api/shared/dto/pagination.dto';
 
 const router = Router();
 // TODO: implement image save feature and image fetch feature

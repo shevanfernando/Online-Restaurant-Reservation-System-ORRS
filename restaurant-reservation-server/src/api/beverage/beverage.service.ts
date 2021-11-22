@@ -9,11 +9,11 @@ import { Beverage, Prisma, PrismaClient } from '@prisma/client';
 import sequenceGenerator from '@util/IdSequenceGenerator';
 import { HttpError } from '@lib/HttpError';
 import titleCaseConverter from '@util/title-case-converter';
-import { BeverageDTO } from '@api/beverage/beverage.dto';
-import { BeverageFilterDTO } from '@api/beverage/beverage-filter.dto';
-import { ItemDeleteDTO } from '@api/shared/item-delete.dto';
-import { BeverageUpdateDTO } from '@api/beverage/beverage-update.dto';
-import { beveragePaginationDTO, paginationFunc } from '@api/shared/pagination.dto';
+import { BeverageDTO } from '@api/beverage/dto/beverage.dto';
+import { BeverageFilterDTO } from '@api/beverage/dto/beverage-filter.dto';
+import { ItemDeleteDTO } from '@api/shared/dto/item-delete.dto';
+import { BeverageUpdateDTO } from '@api/beverage/dto/beverage-update.dto';
+import { beveragePaginationDTO, paginationFunc } from '@api/shared/dto/pagination.dto';
 
 const prisma = new PrismaClient();
 
@@ -135,7 +135,7 @@ const filterBeverage = async (data: BeverageFilterDTO): Promise<beveragePaginati
 
   if (data.beverageId) errorFields = `beverageId = ${data.beverageId}`;
 
-  if (data.name) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''}name = ${data.name}`;
+  if (data.name) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} name = ${data.name}`;
 
   if (data.beverageType)
     errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} beverage type = ${data.beverageType}`;

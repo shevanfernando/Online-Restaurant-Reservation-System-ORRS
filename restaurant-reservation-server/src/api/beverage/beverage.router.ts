@@ -8,14 +8,14 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import beverageService from './beverage.service';
 import { HttpValidationError } from '@lib/HttpValidationError';
-import { beverageDTOObject } from '@api/beverage/beverage.dto';
-import { beverageFilterDTOObject } from '@api/beverage/beverage-filter.dto';
+import { beverageDTOObject } from '@api/beverage/dto/beverage.dto';
+import { beverageFilterDTOObject } from '@api/beverage/dto/beverage-filter.dto';
 import AuthGuard, { Roles } from '@middlewares/auth-guard';
-import { itemDeleteDTO } from '@api/shared/item-delete.dto';
+import { itemDeleteDTO } from '@api/shared/dto/item-delete.dto';
 import upload from '@util/image-saver';
-import { imageSaveDTOObject } from '@api/shared/victual/image-save.dto';
+import { imageSaveDTOObject } from '@api/shared/victual/dto/image-save.dto';
 import victualService from '@api/shared/victual/victual.service';
-import { beverageUpdateDTOObject } from '@api/beverage/beverage-update.dto';
+import { beverageUpdateDTOObject } from '@api/beverage/dto/beverage-update.dto';
 
 const router = Router();
 

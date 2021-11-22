@@ -5,11 +5,11 @@
  * @file    table.router
  */
 import { NextFunction, Request, Response, Router } from 'express';
-import { tableDTOObject } from '@api/table/table.dto';
+import { tableDTOObject } from '@api/table/dto/table.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';
 import tableService from './table.service';
-import { filterTableDTOObject } from '@api/table/filter-table.dto';
-import { freeTableDTOObject } from '@api/table/free-table.dto';
+import { filterTableDTOObject } from '@api/table/dto/filter-table.dto';
+import { freeTableDTOObject } from '@api/table/dto/free-table.dto';
 
 const router = Router();
 

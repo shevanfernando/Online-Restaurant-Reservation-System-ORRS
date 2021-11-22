@@ -5,14 +5,14 @@
  * @file    food.service
  */
 import { Food, Prisma, PrismaClient } from '@prisma/client';
-import { FoodDTO } from '@api/food/food.dto';
+import { FoodDTO } from '@api/food/dto/food.dto';
 import sequenceGenerator from '@util/IdSequenceGenerator';
 import { HttpError } from '@lib/HttpError';
 import titleCaseConverter from '@util/title-case-converter';
-import { FoodFilterDTO } from '@api/food/food-filter.dto';
-import { FoodUpdateDTO } from '@api/food/food-update.dto';
-import { ItemDeleteDTO } from '@api/shared/item-delete.dto';
-import { foodPaginationDTO, paginationFunc } from '@api/shared/pagination.dto';
+import { FoodFilterDTO } from '@api/food/dto/food-filter.dto';
+import { FoodUpdateDTO } from '@api/food/dto/food-update.dto';
+import { ItemDeleteDTO } from '@api/shared/dto/item-delete.dto';
+import { foodPaginationDTO, paginationFunc } from '@api/shared/dto/pagination.dto';
 
 const prisma = new PrismaClient();
 
@@ -127,7 +127,7 @@ const filterFoods = async (data: FoodFilterDTO): Promise<foodPaginationDTO | voi
 
   if (data.foodId) errorFields = `foodId = ${data.foodId}`;
 
-  if (data.name) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''}name = ${data.name}`;
+  if (data.name) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} name = ${data.name}`;
 
   if (data.foodType)
     errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} food type = ${data.foodType}`;

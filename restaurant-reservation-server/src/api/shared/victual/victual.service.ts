@@ -5,7 +5,7 @@
  * @file    victual.service
  */
 import { Prisma, PrismaClient, Victual } from '@prisma/client';
-import { ImageSaveDTO } from '@api/shared/victual/image-save.dto';
+import { ImageSaveDTO } from '@api/shared/victual/dto/image-save.dto';
 import { HttpError } from '@lib/HttpError';
 
 const prisma = new PrismaClient();

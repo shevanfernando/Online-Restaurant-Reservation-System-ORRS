@@ -9,19 +9,29 @@ import Joi, { ValidationError } from 'joi';
 import { Experiance, FeedbackType } from '@prisma/client';
 
 export type FeedbackFiltersDto = {
+  page_no: number;
+  per_page: number;
   level?: Experiance;
   type?: FeedbackType;
-  numberOfRecords: number;
 };
 
 const feedbackFilterDTOObject = Joi.object({
+  page_no: Joi.number().positive().required().messages({
+    'number.base': 'Page number should be a type of "number"',
+    'number.positive': 'Page number should be a positive amount',
+    'any.required': 'Page number is required',
+  }),
+  per_page: Joi.number().positive().required().messages({
+    'number.base': 'Per-Page should be a type of "number"',
+    'number.positive': 'Per-Page no should be a positive amount',
+    'any.required': 'Per-Page no is required',
+  }),
   level: Joi.valid({ Experiance }).messages({
     'any.only': `Level of Experience is allowed only, {#valids}`,
   }),
   type: Joi.valid({ FeedbackType }).messages({
     'any.only': `Feedback Type is allowed only, {#valids}`,
   }),
-  numberOfRecords: Joi.number().messages({ 'number.base': `Number of Records should be a type of 'number'` }),
 }).required();
 
 export default {

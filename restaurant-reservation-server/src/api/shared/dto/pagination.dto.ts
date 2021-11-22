@@ -4,6 +4,7 @@
  * @author  Shevan
  * @file    pagination.dto
  */
+import { BeverageType, Experiance, FeedbackType, FoodType } from '@prisma/client';
 
 type pageDTO = {
   total_rec: number | null;
@@ -19,7 +20,7 @@ type pageDTO = {
 export type foodPaginationDTO = {
   pagination: pageDTO;
   data: {
-    foodType: string;
+    foodType: FoodType;
     victualId: number;
     Victual: {
       victualId: number;
@@ -34,7 +35,7 @@ export type foodPaginationDTO = {
 export type beveragePaginationDTO = {
   pagination: pageDTO;
   data: {
-    beverageType: string;
+    beverageType: BeverageType;
     victualId: number;
     Victual: {
       victualId: number;
@@ -43,6 +44,15 @@ export type beveragePaginationDTO = {
       price: number;
       imagePath: string | null;
     };
+  }[];
+};
+
+export type feedbackPaginationDTO = {
+  pagination: pageDTO;
+  data: {
+    level: Experiance;
+    feedback: string;
+    type: FeedbackType;
   }[];
 };
 
