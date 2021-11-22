@@ -5,16 +5,12 @@
  * @file    beverage-filter.dto
  */
 
-/**
- * @created 19/10/2021
- * @project Online-Restaurant-Reservation-System-ORRS
- * @author  Shevan
- * @file    food-filter.dto
- */
 import { BeverageType } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type BeverageFilterDTO = {
+  page_no: number;
+  per_page: number;
   beverageId?: string;
   name?: string;
   beverageType?: BeverageType;
@@ -22,6 +18,16 @@ export type BeverageFilterDTO = {
 };
 
 export const beverageFilterDTOObject = Joi.object({
+  page_no: Joi.number().positive().required().messages({
+    'number.base': 'Page number should be a type of "number"',
+    'number.positive': 'Page number should be a positive amount',
+    'any.required': 'Page number is required',
+  }),
+  per_page: Joi.number().positive().required().messages({
+    'number.base': 'Per-Page should be a type of "number"',
+    'number.positive': 'Per-Page no should be a positive amount',
+    'any.required': 'Per-Page no is required',
+  }),
   beverageId: Joi.string().length(12).messages({
     'string.base': `Beverage Id should be a type of 'string'`,
     'string.empty': `Beverage Id cannot be an empty field`,
