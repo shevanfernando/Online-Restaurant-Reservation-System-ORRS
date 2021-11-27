@@ -5,7 +5,7 @@
  * @file    UserService
  */
 
-import { Prisma, PrismaClient, Customer, Staff, UserType } from '@prisma/client';
+import { customer, Prisma, PrismaClient, staff, user_type } from '@prisma/client';
 import { UserLoginDTO } from '@api/user/dto/user-login.dto';
 import { HttpError } from '@lib/HttpError';
 import { JWT } from '@util/JWT';
@@ -27,35 +27,35 @@ export class UserService {
   }
 
   public async login(data: UserLoginDTO): Promise<string> {
-    const user = await this.prisma.user.findUnique({ where: { username: data.username } });
+    const user = await this.prisma.app_user.findUnique({ where: { username: data.username } });
     if (user !== null) {
       const passwordIsCorrect = await this.passwordCrypto.compare(data.password, user.password);
       if (passwordIsCorrect) {
-        switch (user.userType) {
-          case UserType.CUSTOMER: {
+        switch (user.user_type) {
+          case user_type.CUSTOMER: {
             const tmp = await this.prisma.customer.findFirst({
-              where: { userId: user.id },
-              include: { Person: true },
+              where: { user_id: user.id },
+              include: { person: true },
             });
             if (tmp !== null) {
               this.payload = {
-                name: `${tmp.Person.firstName} ${tmp.Person.lastName}`,
-                userId: tmp.customerId,
-                userType: user.userType,
+                name: `${tmp.person.first_name} ${tmp.person.last_name}`,
+                user_id: tmp.id,
+                user_type: user.user_type,
               };
             }
             break;
           }
-          case UserType.STAFF: {
+          case user_type.STAFF: {
             const tmp = await this.prisma.staff.findFirst({
-              where: { userId: user.id },
-              include: { Person: true },
+              where: { user_id: user.id },
+              include: { person: true },
             });
             if (tmp !== null) {
               this.payload = {
-                name: `${tmp.Person?.firstName} ${tmp.Person?.lastName}`,
-                staffId: tmp.staffId,
-                userType: tmp.staffType,
+                name: `${tmp.person?.first_name} ${tmp.person?.last_name}`,
+                staffid: tmp.id,
+                user_type: tmp.staff_type,
               };
             }
             break;
@@ -70,12 +70,12 @@ export class UserService {
 
   public async customerRegistration(
     data: CustomerRegisterDTO
-  ): Promise<Prisma.Prisma__CustomerClient<Customer | void>> {
+  ): Promise<Prisma.Prisma__customerClient<customer | void>> {
     const id = await sequenceGenerator.idGenerator('CUS_', 'customer');
-    data.user.password = await this.passwordCrypto.encrypt(data.user.password);
+    data.app_user.password = await this.passwordCrypto.encrypt(data.app_user.password);
     return this.prisma.customer
       .create({
-        data: { customerId: id, Person: { create: data.person }, User: { create: data.user } },
+        data: { id: id, person: { create: data.person }, app_user: { create: data.app_user } },
       })
       .catch((err) => {
         const {
@@ -88,16 +88,16 @@ export class UserService {
       });
   }
 
-  public async staffRegistration(data: StaffRegisterDTO): Promise<Prisma.Prisma__StaffClient<Staff | void>> {
+  public async staffRegistration(data: StaffRegisterDTO): Promise<Prisma.Prisma__staffClient<staff | void>> {
     const id = await sequenceGenerator.idGenerator('STF_', 'staff');
-    data.user.password = await this.passwordCrypto.encrypt(data.user.password);
+    data.app_user.password = await this.passwordCrypto.encrypt(data.app_user.password);
     return this.prisma.staff
       .create({
         data: {
-          staffId: id,
-          staffType: data.staffType,
-          Person: { create: data.person },
-          User: { create: data.user },
+          id: id,
+          staff_type: data.staff_type,
+          person: { create: data.person },
+          app_user: { create: data.app_user },
         },
       })
       .catch((err) => {

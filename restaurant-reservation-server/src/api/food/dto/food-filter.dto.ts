@@ -4,15 +4,15 @@
  * @author  Shevan
  * @file    food-filter.dto
  */
-import { FoodType } from '@prisma/client';
+import { food_type } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type FoodFilterDTO = {
   page_no: number;
   per_page: number;
-  foodId?: string;
+  id?: string;
   name?: string;
-  foodType?: FoodType;
+  food_type?: food_type;
   price?: number;
 };
 
@@ -27,7 +27,7 @@ export const foodFilterDTOObject = Joi.object({
     'number.positive': 'Per-Page no should be a positive amount',
     'any.required': 'Per-Page no is required',
   }),
-  foodId: Joi.string().length(12).messages({
+  id: Joi.string().length(12).messages({
     'string.base': `Food Id should be a type of 'string'`,
     'string.empty': 'Food Id cannot be an empty field',
     'string.length': `Food Id should have a {#limit} characters.`,
@@ -37,7 +37,7 @@ export const foodFilterDTOObject = Joi.object({
     'string.empty': 'Name cannot be an empty field',
     'string.min': `Name should have a minimum length of {#limit}`,
   }),
-  foodType: Joi.valid(FoodType.DESSERTS, FoodType.MAIN_COURSES, FoodType.SIDE_DISHES, FoodType.STARTERS).messages({
+  food_type: Joi.valid(food_type.SIDE_DISHES, food_type.MAIN_COURSES, food_type.DESSERTS, food_type.STARTERS).messages({
     'any.only': `Food Type is allowed only, {#valids}`,
   }),
   price: Joi.number().positive().messages({

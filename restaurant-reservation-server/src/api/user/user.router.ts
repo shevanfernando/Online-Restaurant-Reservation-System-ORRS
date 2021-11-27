@@ -2,10 +2,10 @@
  * @created 26/09/2021 - 06:42
  * @project Online-Restaurant-Reservation-System-ORRS
  * @author  Shevan
- * @file    user.router
+ * @file    app_user.router
  */
 
-import { UserService } from '@api/user/UserService';
+import { UserService } from '@api/user/user.service';
 import { NextFunction, Request, Response, Router } from 'express';
 import userLoginDTO from '@api/user/dto/user-login.dto';
 import { HttpValidationError } from '@lib/HttpValidationError';

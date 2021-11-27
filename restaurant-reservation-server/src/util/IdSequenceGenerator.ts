@@ -16,38 +16,38 @@ const idGenerator = async (stringLiterals: string, tableName: string): Promise<s
   let num = 0;
   switch (tableName) {
     case 'customer': {
-      result = await prisma.customer.findMany({ take: 1, orderBy: { customerId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].customerId.split(stringLiterals)[1]) + 1;
+      result = await prisma.customer.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'staff': {
-      result = await prisma.staff.findMany({ take: 1, orderBy: { staffId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].staffId.split(stringLiterals)[1]) + 1;
+      result = await prisma.staff.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'food': {
-      result = await prisma.food.findMany({ take: 1, orderBy: { foodId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].foodId.split(stringLiterals)[1]) + 1;
+      result = await prisma.food.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'beverage': {
-      result = await prisma.beverage.findMany({ take: 1, orderBy: { beverageId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].beverageId.split(stringLiterals)[1]) + 1;
+      result = await prisma.beverage.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'order': {
-      result = await prisma.order.findMany({ take: 1, orderBy: { orderId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].orderId.split(stringLiterals)[1]) + 1;
+      result = await prisma.order.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'table': {
-      result = await prisma.table.findMany({ take: 1, orderBy: { tableId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].tableId.split(stringLiterals)[1]) + 1;
+      result = await prisma.table.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
     case 'booking': {
-      result = await prisma.booking.findMany({ take: 1, orderBy: { bookingId: 'desc' } });
-      if (result.length !== 0) num = Number(result[0].bookingId.split(stringLiterals)[1]) + 1;
+      result = await prisma.booking.findMany({ take: 1, orderBy: { id: 'desc' } });
+      if (result.length !== 0) num = Number(result[0].id.split(stringLiterals)[1]) + 1;
       break;
     }
   }

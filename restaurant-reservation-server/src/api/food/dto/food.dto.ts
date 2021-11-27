@@ -6,19 +6,21 @@
  */
 
 import Joi, { ValidationError } from 'joi';
-import { FoodType } from '@prisma/client';
+import { food_type } from '@prisma/client';
 import { VictualDTO, victualDTOObject } from '@api/shared/victual/dto/victual.dto';
 
 export type FoodDTO = {
-  foodType: FoodType;
+  food_type: food_type;
   victual: VictualDTO;
 };
 
 export const foodDTOObject = Joi.object({
-  foodType: Joi.valid({ FoodType }).required().messages({
-    'any.only': `Food Type is allowed only, {#valids}`,
-    'any.required': 'Food Type is required',
-  }),
+  food_type: Joi.valid(food_type.SIDE_DISHES, food_type.MAIN_COURSES, food_type.DESSERTS, food_type.STARTERS)
+    .required()
+    .messages({
+      'any.only': `Food Type is allowed only, {#valids}`,
+      'any.required': 'Food Type is required',
+    }),
   victual: victualDTOObject,
 }).required();
 

@@ -40,7 +40,7 @@ export class UserService {
     userType: UserType;
     staffType?: StaffType;
   }): Observable<void> {
-    if (data.userType === UserType.CUSTOMER) {
+    if (data.usertype === UserType.CUSTOMER) {
       return this.http.post<void>(`${this._API}/customer-registration`, {
         person: {
           firstName: data.firstName,
@@ -52,7 +52,7 @@ export class UserService {
         user: {
           username: data.username,
           password: data.password,
-          userType: data.userType,
+          usertype: data.usertype,
         },
       });
     } else {
@@ -67,9 +67,9 @@ export class UserService {
         user: {
           username: data.username,
           password: data.password,
-          userType: data.userType,
+          usertype: data.usertype,
         },
-        staffType: data.staffType,
+        stafftype: data.stafftype,
       });
     }
   }

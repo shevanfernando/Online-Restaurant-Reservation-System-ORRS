@@ -12,6 +12,7 @@ import foodRouter from '@api/food/food.router';
 import beverageRouter from '@api/beverage/beverage.router';
 import feedbackRouter from '@api/feedback/feedback.router';
 import tableRouter from '@api/table/table.router';
+import bookingRouter from '@api/booking/booking.router';
 
 const router: Router = Router();
 
@@ -21,5 +22,6 @@ router.use(`${config.API_PREFIX}/beverage`, beverageRouter);
 router.use(`${config.API_PREFIX}/feedback`, feedbackRouter);
 router.use(`${config.API_PREFIX}/images`, express.static('uploads'));
 router.use(`${config.API_PREFIX}/table`, tableRouter);
+router.use(`${config.API_PREFIX}/booking`, bookingRouter);
 
 export default router;

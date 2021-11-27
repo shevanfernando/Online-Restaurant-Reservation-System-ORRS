@@ -1,98 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DB_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model app_user {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique @db.VarChar(255)
+  password  String     @db.VarChar(255)
+  user_type user_type
+  customer  customer[]
+  staff     staff[]
 }
 
-model Customer {
-  customerId String    @id
-  Person     Person    @relation(fields: [personId], references: [id])
-  personId   Int       @unique
-  User       User      @relation(fields: [userId], references: [id])
-  userId     Int       @unique
-  Booking    Booking[]
+model beverage {
+  id                  String                @id @db.VarChar(50)
+  beverage_type       beverage_type
+  victual_id          Int                   @default(autoincrement())
+  victual             victual               @relation(fields: [victual_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_victual_fod")
+  beverage_order_item beverage_order_item[]
 }
 
-model Staff {
-  staffId   String    @id
-  staffType StaffType
-  Person    Person    @relation(fields: [personId], references: [id])
-  personId  Int       @unique
-  User      User      @relation(fields: [userId], references: [id])
-  userId    Int       @unique
+model beverage_order_item {
+  order_item_id Int        @default(autoincrement())
+  beverage_id   String     @db.VarChar(50)
+  beverage      beverage   @relation(fields: [beverage_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_beverage_id_food_order_item")
+  order_item    order_item @relation(fields: [order_item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_item_id_food_order_item")
+  quantity      Int
+
+  @@id([order_item_id, beverage_id])
 }
 
-enum StaffType {
-  RECEPTIONIST
-  WAITER
-  ADMIN
-  CHEF
+model booking {
+  id             String           @id @db.VarChar(50)
+  booked_date    String           @db.VarChar(50)
+  booking_date   String           @db.VarChar(50)
+  booking_start  String           @db.VarChar(50)
+  booking_end    String           @db.VarChar(50)
+  customer_id    String           @db.VarChar(50)
+  customer       customer         @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customer_id_bok")
+  order          order[]
+  reserved_table reserved_table[]
 }
 
-model Person {
-  id          Int       @id @default(autoincrement())
-  firstName   String
-  lastName    String?
-  email       String    @unique
-  phoneNumber String?   @unique
-  nic         String    @unique
-  Customer    Customer?
-  Staff       Staff?
+model customer {
+  id        String    @id @db.VarChar(50)
+  user_id   Int       @default(autoincrement())
+  person_id Int       @default(autoincrement())
+  person    person    @relation(fields: [person_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_person_id_cus")
+  app_user  app_user  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id_cus")
+  booking   booking[]
 }
 
-model User {
-  id       Int       @id @default(autoincrement())
-  username String    @unique
-  password String
-  userType UserType
-  Customer Customer?
-  Staff    Staff?
+model food {
+  id              String            @id @db.VarChar(50)
+  food_type       food_type
+  victual_id      Int               @default(autoincrement())
+  victual         victual           @relation(fields: [victual_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_victual_fod")
+  food_order_item food_order_item[]
 }
 
-enum UserType {
-  CUSTOMER
-  STAFF
+model food_order_item {
+  order_item_id Int        @default(autoincrement())
+  food_id       String     @db.VarChar(50)
+  food          food       @relation(fields: [food_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_food_id_food_order_item")
+  order_item    order_item @relation(fields: [order_item_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_item_id_food_order_item")
+  quantity      Int
+
+  @@id([order_item_id, food_id])
 }
 
-model Victual {
-  victualId   Int       @id @default(autoincrement())
-  name        String    @unique
+model order {
+  id                    String       @id @db.VarChar(50)
+  request_date_and_time DateTime     @db.Timestamp(6)
+  table_id              String       @db.VarChar(50)
+  booking_id            String       @db.VarChar(50)
+  booking               booking      @relation(fields: [booking_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_booking_id_ord")
+  table                 table        @relation(fields: [table_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_table_id_ord")
+  order_item            order_item[]
+}
+
+model order_item {
+  id                  Int                   @id @default(autoincrement())
+  order_id            String                @db.VarChar(50)
+  order               order                 @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_id_orditm")
+  beverage_order_item beverage_order_item[]
+  food_order_item     food_order_item[]
+}
+
+model person {
+  id           Int        @id @default(autoincrement())
+  first_name   String     @db.VarChar(255)
+  last_name    String?    @db.VarChar(255)
+  email        String     @unique @db.VarChar(255)
+  phone_number String?    @unique @db.VarChar(50)
+  nic          String     @unique @db.VarChar(50)
+  customer     customer[]
+  staff        staff[]
+}
+
+model reserved_table {
+  booking_id String  @db.VarChar(50)
+  table_id   String  @db.VarChar(50)
+  booking    booking @relation(fields: [booking_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_booking_id_res")
+  table      table   @relation(fields: [table_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_table_id_res")
+
+  @@id([booking_id, table_id])
+}
+
+model staff {
+  id         String     @id @db.VarChar(50)
+  staff_type staff_type
+  user_id    Int        @default(autoincrement())
+  person_id  Int        @default(autoincrement())
+  person     person     @relation(fields: [person_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_person_id_stf")
+  app_user   app_user   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id_stf")
+}
+
+model table {
+  id              String           @id @db.VarChar(50)
+  table_type      table_type
+  number_of_seats number_of_seats
+  status          table_status
+  order           order[]
+  reserved_table  reserved_table[]
+}
+
+model victual {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique @db.VarChar(50)
   description String
-  price       Float
-  imagePath   String?
-  Food        Food?
-  Beverage    Beverage?
+  price       Decimal    @db.Decimal(8, 2)
+  image_path  String?    @db.VarChar(255)
+  beverage    beverage[]
+  food        food[]
 }
 
-model Food {
-  foodId    String   @id
-  foodType  FoodType
-  Victual   Victual  @relation(fields: [victualId], references: [victualId])
-  victualId Int      @unique
-  Order     Order?   @relation(fields: [orderId], references: [orderId])
-  orderId   String?
+model feedback {
+  id       Int           @id @default(autoincrement())
+  level    experiance
+  feedback String?
+  type     feedback_type
 }
 
-enum FoodType {
-  STARTERS
-  SIDE_DISHES
-  MAIN_COURSES
-  DESSERTS
-}
-
-model Beverage {
-  beverageId   String       @id
-  beverageType BeverageType
-  Victual      Victual      @relation(fields: [victualId], references: [victualId])
-  victualId    Int          @unique
-  Order        Order?       @relation(fields: [orderId], references: [orderId])
-  orderId      String?
-}
-
-enum BeverageType {
+enum beverage_type {
   STIMULATING
   NOURISHING
   REFRESHING
@@ -104,57 +158,48 @@ enum BeverageType {
   BRANDY
 }
 
-model Order {
-  orderId            String     @id
-  foodList           Food[]
-  beveragesList      Beverage[]
-  noOfPersons        Int
-  requestDateAndTime DateTime
-  Table              Table[]
-  Booking            Booking?   @relation(fields: [bookingId], references: [bookingId])
-  bookingId          String?
+enum food_type {
+  STARTERS
+  SIDE_DISHES
+  MAIN_COURSES
+  DESSERTS
 }
 
-model Table {
-  tableId       String    @id
-  tableType     TableType
-  numberOfSeats Int
-  Order         Order?    @relation(fields: [orderId], references: [orderId])
-  orderId       String?
-  Booking       Booking?  @relation(fields: [bookingId], references: [bookingId])
-  bookingId     String?
+enum number_of_seats {
+  TWO
+  FOUR
+  SIX
 }
 
-enum TableType {
+enum staff_type {
+  RECEPTIONIST
+  WAITER
+  ADMIN
+  CHEF
+}
+
+enum table_status {
+  AVAILABLE
+  RESERVED
+}
+
+enum table_type {
   NORMAL
   RESERVATION
 }
 
-model Booking {
-  bookingId      String   @id
-  bookingDate    DateTime
-  startTime      DateTime
-  endTime        DateTime
-  reservedTables Table[]
-  oreders        Order[]
-  Customer       Customer @relation(fields: [customerId], references: [customerId])
-  customerId     String
+enum user_type {
+  CUSTOMER
+  STAFF
 }
 
-model Feedback {
-  feedbackId Int          @id @default(autoincrement())
-  level      Experiance
-  feedback   String
-  type       FeedbackType
-}
-
-enum Experiance {
+enum experiance {
   POOR
   AVERAGE
   GOOD
 }
 
-enum FeedbackType {
+enum feedback_type {
   BUG
   SUGGESTION
   OTHER

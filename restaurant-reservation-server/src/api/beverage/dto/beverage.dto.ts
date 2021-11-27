@@ -6,19 +6,31 @@
  */
 
 import Joi, { ValidationError } from 'joi';
-import { BeverageType } from '@prisma/client';
+import { beverage_type } from '@prisma/client';
 import { VictualDTO, victualDTOObject } from '@api/shared/victual/dto/victual.dto';
 
 export type BeverageDTO = {
-  beverageType: BeverageType;
+  beverage_type: beverage_type;
   victual: VictualDTO;
 };
 
 export const beverageDTOObject = Joi.object({
-  beverageType: Joi.valid({ BeverageType }).required().messages({
-    'any.only': `Beverage Type is allowed only, {#valids}`,
-    'any.required': 'Beverage Type is required',
-  }),
+  beverage_type: Joi.valid(
+    beverage_type.STIMULATING,
+    beverage_type.NOURISHING,
+    beverage_type.RUM,
+    beverage_type.BEER,
+    beverage_type.VODKA,
+    beverage_type.REFRESHING,
+    beverage_type.VINE,
+    beverage_type.BRANDY,
+    beverage_type.WHISKY
+  )
+    .required()
+    .messages({
+      'any.only': `Beverage Type is allowed only, {#valids}`,
+      'any.required': 'Beverage Type is required',
+    }),
   victual: victualDTOObject,
 }).required();
 

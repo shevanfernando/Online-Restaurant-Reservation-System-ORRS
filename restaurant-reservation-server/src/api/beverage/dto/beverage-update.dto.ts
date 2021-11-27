@@ -6,32 +6,32 @@
  */
 
 import Joi, { ValidationError } from 'joi';
-import { BeverageType } from '@prisma/client';
+import { beverage_type } from '@prisma/client';
 import { VictualDTO, victualDTOObject } from '@api/shared/victual/dto/victual.dto';
 
 export type BeverageUpdateDTO = {
-  beverageId: string;
-  beverageType: BeverageType;
+  id: string;
+  beverage_type: beverage_type;
   victual: VictualDTO;
 };
 
 export const beverageUpdateDTOObject = Joi.object({
-  beverageId: Joi.string().length(12).required().messages({
+  id: Joi.string().length(12).required().messages({
     'string.base': 'Beverage Id should be a type of "string"',
     'string.empty': 'Beverage Id cannot be an empty field',
     'string.length': `Beverage Id should have a {#limit} characters.`,
     'any.required': 'Beverage Id is required',
   }),
-  beverageType: Joi.valid(
-    BeverageType.BEER,
-    BeverageType.BRANDY,
-    BeverageType.RUM,
-    BeverageType.VINE,
-    BeverageType.VODKA,
-    BeverageType.REFRESHING,
-    BeverageType.NOURISHING,
-    BeverageType.STIMULATING,
-    BeverageType.WHISKY
+  beverage_type: Joi.valid(
+    beverage_type.STIMULATING,
+    beverage_type.NOURISHING,
+    beverage_type.RUM,
+    beverage_type.BEER,
+    beverage_type.VODKA,
+    beverage_type.REFRESHING,
+    beverage_type.VINE,
+    beverage_type.BRANDY,
+    beverage_type.WHISKY
   )
     .required()
     .messages({

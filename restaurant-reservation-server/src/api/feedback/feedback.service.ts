@@ -4,18 +4,19 @@
  * @author  Shevan
  * @file    feedback.service
  */
+
 import { FeedbackDto } from '@api/feedback/dto/feedback.dto';
-import { Feedback, Prisma, PrismaClient } from '@prisma/client';
+import { feedback, Prisma, PrismaClient } from '@prisma/client';
 import { FeedbackFiltersDto } from '@api/feedback/dto/feedback-filters.dto';
-import { feedbackPaginationDTO, paginationFunc } from '@api/shared/dto/pagination.dto';
+import { paginationFunc } from '@api/shared/dto/pagination.dto';
 import { HttpError } from '@lib/HttpError';
 
 const prisma = new PrismaClient();
 
-const createNewFeedback = async (data: FeedbackDto): Promise<Prisma.Prisma__FeedbackClient<Feedback>> =>
+const createNewFeedback = async (data: FeedbackDto): Promise<Prisma.Prisma__feedbackClient<feedback>> =>
   prisma.feedback.create({ data: data });
 
-const getFeedbackByFilters = async (data: FeedbackFiltersDto): Promise<feedbackPaginationDTO | void> => {
+const getFeedbackByFilters = async (data: FeedbackFiltersDto): Promise<any | void> => {
   const start = (data.page_no - 1) * data.per_page;
   const feedback = await prisma.feedback.findMany({
     skip: start,
@@ -23,7 +24,7 @@ const getFeedbackByFilters = async (data: FeedbackFiltersDto): Promise<feedbackP
     where: { level: data.level, type: data.type },
     orderBy: [
       {
-        feedbackId: 'asc',
+        id: 'asc',
       },
     ],
   });

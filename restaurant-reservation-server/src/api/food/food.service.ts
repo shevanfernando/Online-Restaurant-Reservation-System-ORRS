@@ -4,7 +4,8 @@
  * @author  Shevan
  * @file    food.service
  */
-import { Food, Prisma, PrismaClient } from '@prisma/client';
+
+import { food, Prisma, PrismaClient } from '@prisma/client';
 import { FoodDTO } from '@api/food/dto/food.dto';
 import sequenceGenerator from '@util/IdSequenceGenerator';
 import { HttpError } from '@lib/HttpError';
@@ -12,18 +13,18 @@ import titleCaseConverter from '@util/title-case-converter';
 import { FoodFilterDTO } from '@api/food/dto/food-filter.dto';
 import { FoodUpdateDTO } from '@api/food/dto/food-update.dto';
 import { ItemDeleteDTO } from '@api/shared/dto/item-delete.dto';
-import { foodPaginationDTO, paginationFunc } from '@api/shared/dto/pagination.dto';
+import { foodPaginationDTO } from '@api/shared/dto/pagination.dto';
 
 const prisma = new PrismaClient();
 
-const addFood = async (data: FoodDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
+const addFood = async (data: FoodDTO): Promise<Prisma.Prisma__foodClient<food> | void> => {
   const id = await sequenceGenerator.idGenerator('FOD_', 'food');
   return prisma.food
     .create({
       data: {
-        foodId: id,
-        foodType: data.foodType,
-        Victual: {
+        id: id,
+        food_type: data.food_type,
+        victual: {
           create: data.victual,
         },
       },
@@ -40,13 +41,13 @@ const addFood = async (data: FoodDTO): Promise<Prisma.Prisma__FoodClient<Food> |
     });
 };
 
-const updateFood = async (data: FoodUpdateDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
+const updateFood = async (data: FoodUpdateDTO): Promise<Prisma.Prisma__foodClient<food> | void> => {
   return prisma.food
     .update({
-      where: { foodId: data.foodId },
+      where: { id: data.id },
       data: {
-        foodType: data.foodType,
-        Victual: {
+        food_type: data.food_type,
+        victual: {
           update: data.victual,
         },
       },
@@ -60,13 +61,13 @@ const updateFood = async (data: FoodUpdateDTO): Promise<Prisma.Prisma__FoodClien
     });
 };
 
-const deleteFood = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__FoodClient<Food> | void> => {
+const deleteFood = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__foodClient<food> | void> => {
   return prisma.food
     .delete({
-      where: { foodId: data.id },
+      where: { id: data.id },
     })
     .then((res) => {
-      prisma.victual.delete({ where: { victualId: res.victualId } });
+      prisma.victual.delete({ where: { id: res.victual_id } });
     });
 };
 
@@ -76,61 +77,54 @@ const filterFoods = async (data: FoodFilterDTO): Promise<foodPaginationDTO | voi
     skip: start,
     take: data.per_page,
     where: {
-      foodId: data.foodId,
-      foodType: data.foodType,
-      Victual: {
+      id: data.id,
+      food_type: data.food_type,
+      victual: {
         name: data.name,
         price: data.price,
       },
     },
     select: {
-      foodType: true,
-      victualId: true,
-      Victual: true,
+      food_type: true,
+      victual_id: true,
+      victual: true,
     },
     orderBy: [
       {
-        victualId: 'asc',
+        victual_id: 'asc',
       },
     ],
   });
 
   if (food.length !== 0) {
-    const total = await prisma.food.count({
+    await prisma.food.count({
       where: {
-        foodId: data.foodId,
-        foodType: data.foodType,
-        Victual: {
+        id: data.id,
+        food_type: data.food_type,
+        victual: {
           name: data.name,
           price: data.price,
         },
       },
     });
     food = food.map((res) => {
-      if (res.Victual.imagePath) {
-        res.Victual.imagePath = `images/${res.Victual.imagePath}`;
+      if (res.victual.image_path) {
+        res.victual.image_path = `images/${res.victual.image_path}`;
         return res;
       } else return res;
     });
-    return {
-      pagination: paginationFunc({
-        total_rec: total,
-        per_page: data.per_page,
-        cr_num_data: food.length,
-        page_no: data.page_no,
-      }),
-      data: food,
-    };
+
+    console.log(food);
   }
 
   let errorFields;
 
-  if (data.foodId) errorFields = `foodId = ${data.foodId}`;
+  if (data.id) errorFields = `foodId = ${data.id}`;
 
   if (data.name) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} name = ${data.name}`;
 
-  if (data.foodType)
-    errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} food type = ${data.foodType}`;
+  if (data.food_type)
+    errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} food type = ${data.food_type}`;
 
   if (data.price) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''}price = ${data.price}`;
 

@@ -5,82 +5,82 @@
  * @file    StaffData
  */
 
-import { StaffType, UserType } from '@prisma/client';
+import { staff_type, user_type } from '@prisma/client';
 
 export const StaffDataList = [
   {
-    staffType: StaffType.ADMIN,
-    Person: {
+    staff_type: staff_type.ADMIN,
+    person: {
       create: {
-        firstName: 'Admin',
-        lastName: 'Admin',
+        first_name: 'Admin',
+        last_name: 'Admin',
         email: 'admin@gmail.com',
-        phoneNumber: '0112456789',
+        phone_number: '0112456789',
         nic: '138975931V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'admin',
         password: 'admin',
-        userType: UserType.STAFF,
+        user_type: user_type.STAFF,
       },
     },
   },
   {
-    staffType: StaffType.CHEF,
-    Person: {
+    staff_type: staff_type.CHEF,
+    person: {
       create: {
-        firstName: 'Aron',
-        lastName: 'Udayanga',
+        first_name: 'Aron',
+        last_name: 'Udayanga',
         email: 'aronudayanga@gmail.com',
-        phoneNumber: '0113456789',
+        phone_number: '0113456789',
         nic: '958972931V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'staff1',
         password: '12345',
-        userType: UserType.STAFF,
+        user_type: user_type.STAFF,
       },
     },
   },
   {
-    staffType: StaffType.WAITER,
-    Person: {
+    staff_type: staff_type.WAITER,
+    person: {
       create: {
-        firstName: 'Shehan',
-        lastName: 'Perera',
+        first_name: 'Shehan',
+        last_name: 'Perera',
         email: 'shehan@gmail.com',
-        phoneNumber: '0123456189',
+        phone_number: '0123456189',
         nic: '898971231V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'staff2',
         password: '12345',
-        userType: UserType.STAFF,
+        user_type: user_type.STAFF,
       },
     },
   },
   {
-    staffType: StaffType.RECEPTIONIST,
-    Person: {
+    staff_type: staff_type.RECEPTIONIST,
+    person: {
       create: {
-        firstName: 'Nuwangi',
-        lastName: 'Samarakone',
+        first_name: 'Nuwangi',
+        last_name: 'Samarakone',
         email: 'samarakone.nuwangi@gmail.com',
-        phoneNumber: '0713456789',
+        phone_number: '0713456789',
         nic: '988975935V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'staff3',
         password: '12345',
-        userType: UserType.STAFF,
+        user_type: user_type.STAFF,
       },
     },
   },

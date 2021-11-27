@@ -4,17 +4,18 @@
  * @author  Shevan
  * @file    victual.service
  */
-import { Prisma, PrismaClient, Victual } from '@prisma/client';
+
+import { Prisma, PrismaClient, victual } from '@prisma/client';
 import { ImageSaveDTO } from '@api/shared/victual/dto/image-save.dto';
 import { HttpError } from '@lib/HttpError';
 
 const prisma = new PrismaClient();
 
-const addImage = async (data: ImageSaveDTO, field: string): Promise<Prisma.Prisma__VictualClient<Victual> | void> => {
+const addImage = async (data: ImageSaveDTO, field: string): Promise<Prisma.Prisma__victualClient<victual> | void> => {
   return prisma.victual
     .update({
-      where: { victualId: data.victualId },
-      data: { imagePath: data.imagePath },
+      where: { id: data.id },
+      data: { image_path: data.image_path },
     })
     .catch((err) => {
       const { code } = err;

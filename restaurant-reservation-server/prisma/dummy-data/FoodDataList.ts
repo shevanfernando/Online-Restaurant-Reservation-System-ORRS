@@ -5,12 +5,12 @@
  * @file    FoodData
  */
 
-import { FoodType } from '@prisma/client';
+import { food_type } from '@prisma/client';
 
 export const FoodDataList = [
   {
-    foodType: FoodType.SIDE_DISHES,
-    Victual: {
+    food_type: food_type.SIDE_DISHES,
+    victual: {
       create: {
         name: 'French Fries',
         description: 'Lorem ipsum',
@@ -19,8 +19,8 @@ export const FoodDataList = [
     },
   },
   {
-    foodType: FoodType.SIDE_DISHES,
-    Victual: {
+    food_type: food_type.SIDE_DISHES,
+    victual: {
       create: {
         name: 'Garlic Bread',
         description: 'Lorem ipsum',
@@ -29,8 +29,8 @@ export const FoodDataList = [
     },
   },
   {
-    foodType: FoodType.MAIN_COURSES,
-    Victual: {
+    food_type: food_type.MAIN_COURSES,
+    victual: {
       create: {
         name: 'Fried Rice',
         description: 'Lorem ipsum',

@@ -5,25 +5,25 @@
  * @file    FeedbackData
  */
 
-import { Experiance, FeedbackType } from '@prisma/client';
+import { experiance, feedback_type } from '@prisma/client';
 
 export const FeedbackDataList = [
   {
-    level: Experiance.GOOD,
+    level: experiance.GOOD,
     feedback:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    type: FeedbackType.SUGGESTION,
+    type: feedback_type.SUGGESTION,
   },
   {
-    level: Experiance.POOR,
+    level: experiance.POOR,
     feedback:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    type: FeedbackType.BUG,
+    type: feedback_type.BUG,
   },
   {
-    level: Experiance.AVERAGE,
+    level: experiance.AVERAGE,
     feedback:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    type: FeedbackType.OTHER,
+    type: feedback_type.OTHER,
   },
 ];

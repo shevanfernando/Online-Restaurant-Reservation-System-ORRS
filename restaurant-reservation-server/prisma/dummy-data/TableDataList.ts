@@ -5,24 +5,28 @@
  * @file    TableDataList
  */
 
-import { TableType } from '@prisma/client';
+import { number_of_seats, table_status, table_type } from '@prisma/client';
 
 const TableDataList = [
   {
-    tableType: TableType.RESERVATION,
-    numberOfSeats: 2,
+    table_type: table_type.RESERVATION,
+    number_of_seats: number_of_seats.TWO,
+    status: table_status.AVAILABLE,
   },
   {
-    tableType: TableType.RESERVATION,
-    numberOfSeats: 4,
+    table_type: table_type.RESERVATION,
+    number_of_seats: number_of_seats.TWO,
+    status: table_status.AVAILABLE,
   },
   {
-    tableType: TableType.RESERVATION,
-    numberOfSeats: 8,
+    table_type: table_type.RESERVATION,
+    number_of_seats: number_of_seats.TWO,
+    status: table_status.AVAILABLE,
   },
   {
-    tableType: TableType.RESERVATION,
-    numberOfSeats: 12,
+    table_type: table_type.RESERVATION,
+    number_of_seats: number_of_seats.TWO,
+    status: table_status.AVAILABLE,
   },
 ];
 

@@ -4,25 +4,25 @@
  * @author  Shevan
  * @file    table.dto
  */
-import { TableType } from '@prisma/client';
+import { number_of_seats, table_status, table_type } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type TableDTO = {
-  tableType: TableType;
-  numberOfSeats: number;
+  table_type: table_type;
+  number_of_seats: number_of_seats;
+  status: table_status;
 };
 
 export const tableDTOObject = Joi.object({
-  tabletype: Joi.valid({ TableType }).required().messages({
+  table_type: Joi.valid({ table_type }).required().messages({
     'any.only': `Table Type is allowed only, {#valids}`,
     'any.required': 'Table Type is required',
   }),
-  numberOfSeats: Joi.number().invalid(1).positive().required().messages({
-    'number.base': 'Number of seats should be a type of "number"',
-    'number.positive': 'Number of seats should be a positive amount',
-    'number.invalid': 'Number of seats is invalid',
+  number_of_seats: Joi.valid(number_of_seats.TWO, number_of_seats.SIX, number_of_seats.FOUR).required().messages({
+    'any.only': `Number of seats is allow only, {#valids}`,
     'any.required': 'Number of seats is required',
   }),
+  status: table_status.AVAILABLE,
 });
 
 export default {

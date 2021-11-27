@@ -5,17 +5,17 @@
  * @file    feedback.dto
  */
 
-import { Experiance, FeedbackType } from '@prisma/client';
+import { experiance, feedback_type } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type FeedbackDto = {
-  level: Experiance;
+  level: experiance;
   feedback: string;
-  type: FeedbackType;
+  type: feedback_type;
 };
 
 const feedbackDTOObject = Joi.object({
-  level: Joi.valid(Experiance.POOR, Experiance.AVERAGE, Experiance.GOOD)
+  level: Joi.valid(experiance.POOR, experiance.AVERAGE, experiance.GOOD)
     .required()
     .messages({ 'any.only': `Level of Experience is allowed only, {#valids}` }),
   feedback: Joi.string().min(2).required().messages({
@@ -24,7 +24,7 @@ const feedbackDTOObject = Joi.object({
     'string.min': `Feedback Description should have min length of {#limit}`,
     'any.required': 'Feedback Description is required',
   }),
-  type: Joi.valid({ FeedbackType }).required().messages({ 'any.only': `Feedback Type is allowed only, {#valids}` }),
+  type: Joi.valid({ feedback_type }).required().messages({ 'any.only': `Feedback Type is allowed only, {#valids}` }),
 }).required();
 
 export default {

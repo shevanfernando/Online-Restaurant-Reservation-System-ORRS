@@ -5,15 +5,15 @@
  * @file    beverage-filter.dto
  */
 
-import { BeverageType } from '@prisma/client';
+import { beverage_type } from '@prisma/client';
 import Joi, { ValidationError } from 'joi';
 
 export type BeverageFilterDTO = {
   page_no: number;
   per_page: number;
-  beverageId?: string;
+  id?: string;
   name?: string;
-  beverageType?: BeverageType;
+  beverage_type?: beverage_type;
   price?: number;
 };
 
@@ -28,7 +28,7 @@ export const beverageFilterDTOObject = Joi.object({
     'number.positive': 'Per-Page no should be a positive amount',
     'any.required': 'Per-Page no is required',
   }),
-  beverageId: Joi.string().length(12).messages({
+  id: Joi.string().length(12).messages({
     'string.base': `Beverage Id should be a type of 'string'`,
     'string.empty': `Beverage Id cannot be an empty field`,
     'string.length': `Beverage Id should have a {#limit} characters.`,
@@ -38,16 +38,16 @@ export const beverageFilterDTOObject = Joi.object({
     'string.empty': 'Name cannot be an empty field',
     'string.min': `Name should have a minimum length of {#limit}`,
   }),
-  beverageType: Joi.valid(
-    BeverageType.BEER,
-    BeverageType.BRANDY,
-    BeverageType.RUM,
-    BeverageType.VINE,
-    BeverageType.VODKA,
-    BeverageType.REFRESHING,
-    BeverageType.NOURISHING,
-    BeverageType.STIMULATING,
-    BeverageType.WHISKY
+  beverage_type: Joi.valid(
+    beverage_type.STIMULATING,
+    beverage_type.NOURISHING,
+    beverage_type.RUM,
+    beverage_type.BEER,
+    beverage_type.VODKA,
+    beverage_type.REFRESHING,
+    beverage_type.VINE,
+    beverage_type.BRANDY,
+    beverage_type.WHISKY
   ).messages({ 'any.only': `Beverage Type is allowed only, {#valids}` }),
   price: Joi.number().positive().messages({
     'number.base': 'Prise should be a type of "number"',

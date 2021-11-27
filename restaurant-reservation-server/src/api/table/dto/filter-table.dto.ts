@@ -4,19 +4,25 @@
  * @author  Shevan
  * @file    filter-table.dto
  */
+
 import Joi, { ValidationError } from 'joi';
+import { number_of_seats } from '@prisma/client';
 
 export type FilterTableDTO = {
-  numberOfSeats: number;
+  number_of_seats: number_of_seats;
+  booking_date: string;
+  booking_start: string;
+  booking_end: string;
 };
 
 export const filterTableDTOObject = Joi.object({
-  numberOfSeats: Joi.number().positive().invalid(1).required().messages({
-    'number.base': 'Number of seats should be a type of "number"',
-    'number.positive': 'Number of seats should be a positive amount',
-    'number.invalid': 'Number of seats is invalid',
+  number_of_seats: Joi.valid(number_of_seats.TWO, number_of_seats.SIX, number_of_seats.FOUR).messages({
+    'any.only': `Number of seats is allow only, {#valids}`,
     'any.required': 'Number of seats is required',
   }),
+  booking_date: Joi.string().required().messages({ 'any.required': 'Booking Date is required' }),
+  booking_start: Joi.string().required().messages({ 'any.required': 'Booking Start Time is required' }),
+  booking_end: Joi.string().required().messages({ 'any.required': 'Booking End Time is required' }),
 });
 
 export default {

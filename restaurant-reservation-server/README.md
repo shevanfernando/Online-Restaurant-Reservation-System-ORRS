@@ -89,7 +89,7 @@ npm run dev
 ```
 
 The server is now running on `http://localhost:5000`. You can now the API requests,
-e.g. [`http://localhost:5000/user`](http://localhost:5000/user).
+e.g. [`http://localhost:5000/app_user`](http://localhost:5000/user).
 
 ### 5. Running unit tests and super tests
 

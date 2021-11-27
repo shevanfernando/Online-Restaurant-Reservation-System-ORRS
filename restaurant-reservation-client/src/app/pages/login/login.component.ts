@@ -48,7 +48,7 @@ export class LoginComponent {
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
-      userType: new FormControl(UserType.CUSTOMER, [Validators.required]),
+      usertype: new FormControl(UserType.CUSTOMER, [Validators.required]),
     },
     {
       validators: this.passwordConfirm,

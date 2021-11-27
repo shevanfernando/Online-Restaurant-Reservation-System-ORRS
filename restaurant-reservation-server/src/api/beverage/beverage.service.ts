@@ -5,7 +5,7 @@
  * @file    beverage.service
  */
 
-import { Beverage, Prisma, PrismaClient } from '@prisma/client';
+import { beverage, Prisma, PrismaClient } from '@prisma/client';
 import sequenceGenerator from '@util/IdSequenceGenerator';
 import { HttpError } from '@lib/HttpError';
 import titleCaseConverter from '@util/title-case-converter';
@@ -13,18 +13,18 @@ import { BeverageDTO } from '@api/beverage/dto/beverage.dto';
 import { BeverageFilterDTO } from '@api/beverage/dto/beverage-filter.dto';
 import { ItemDeleteDTO } from '@api/shared/dto/item-delete.dto';
 import { BeverageUpdateDTO } from '@api/beverage/dto/beverage-update.dto';
-import { beveragePaginationDTO, paginationFunc } from '@api/shared/dto/pagination.dto';
+import { paginationFunc } from '@api/shared/dto/pagination.dto';
 
 const prisma = new PrismaClient();
 
-const addBeverage = async (data: BeverageDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
+const addBeverage = async (data: BeverageDTO): Promise<Prisma.Prisma__beverageClient<beverage> | void> => {
   const id = await sequenceGenerator.idGenerator('BVG_', 'beverage');
   return prisma.beverage
     .create({
       data: {
-        beverageId: id,
-        beverageType: data.beverageType,
-        Victual: {
+        id: id,
+        beverage_type: data.beverage_type,
+        victual: {
           create: data.victual,
         },
       },
@@ -41,13 +41,13 @@ const addBeverage = async (data: BeverageDTO): Promise<Prisma.Prisma__BeverageCl
     });
 };
 
-const updateBeverage = async (data: BeverageUpdateDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
+const updateBeverage = async (data: BeverageUpdateDTO): Promise<Prisma.Prisma__beverageClient<beverage> | void> => {
   return prisma.beverage
     .update({
-      where: { beverageId: data.beverageId },
+      where: { id: data.id },
       data: {
-        beverageType: data.beverageType,
-        Victual: {
+        beverage_type: data.beverage_type,
+        victual: {
           update: data.victual,
         },
       },
@@ -61,44 +61,44 @@ const updateBeverage = async (data: BeverageUpdateDTO): Promise<Prisma.Prisma__B
     });
 };
 
-const deleteBeverage = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__BeverageClient<Beverage> | void> => {
+const deleteBeverage = async (data: ItemDeleteDTO): Promise<Prisma.Prisma__beverageClient<beverage> | void> => {
   return prisma.beverage
     .delete({
-      where: { beverageId: data.id },
+      where: { id: data.id },
     })
     .then((res) => {
-      prisma.victual.delete({ where: { victualId: res.victualId } });
+      prisma.victual.delete({ where: { id: res.victual_id } });
     })
     .catch((err) => {
       const { code } = err;
-      if (code === 'P2025') {
+      if (code == 'P2025') {
         throw new HttpError(404, "Can't find any Beverage item using this beverage id.");
       }
       return err;
     });
 };
 
-const filterBeverage = async (data: BeverageFilterDTO): Promise<beveragePaginationDTO | void> => {
+const filterBeverage = async (data: BeverageFilterDTO): Promise<any | void> => {
   const start = (data.page_no - 1) * data.per_page;
   let beverage = await prisma.beverage.findMany({
     skip: start,
     take: data.per_page,
     where: {
-      beverageId: data.beverageId,
-      beverageType: data.beverageType,
-      Victual: {
+      id: data.id,
+      beverage_type: data.beverage_type,
+      victual: {
         name: data.name,
         price: data.price,
       },
     },
     select: {
-      beverageType: true,
-      victualId: true,
-      Victual: true,
+      beverage_type: true,
+      victual_id: true,
+      victual: true,
     },
     orderBy: [
       {
-        victualId: 'asc',
+        victual_id: 'asc',
       },
     ],
   });
@@ -106,17 +106,17 @@ const filterBeverage = async (data: BeverageFilterDTO): Promise<beveragePaginati
   if (beverage.length !== 0) {
     const total = await prisma.beverage.count({
       where: {
-        beverageId: data.beverageId,
-        beverageType: data.beverageType,
-        Victual: {
+        id: data.id,
+        beverage_type: data.beverage_type,
+        victual: {
           name: data.name,
           price: data.price,
         },
       },
     });
     beverage = beverage.map((res) => {
-      if (res.Victual.imagePath) {
-        res.Victual.imagePath = `images/${res.Victual.imagePath}`;
+      if (res.victual.image_path) {
+        res.victual.image_path = `images/${res.victual.image_path}`;
         return res;
       } else return res;
     });
@@ -133,12 +133,12 @@ const filterBeverage = async (data: BeverageFilterDTO): Promise<beveragePaginati
 
   let errorFields;
 
-  if (data.beverageId) errorFields = `beverageId = ${data.beverageId}`;
+  if (data.id) errorFields = `beverageId = ${data.id}`;
 
   if (data.name) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} name = ${data.name}`;
 
-  if (data.beverageType)
-    errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} beverage type = ${data.beverageType}`;
+  if (data.beverage_type)
+    errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''} beverage type = ${data.beverage_type}`;
 
   if (data.price) errorFields = `${(errorFields !== undefined && errorFields + ', ') || ''}price = ${data.price}`;
 

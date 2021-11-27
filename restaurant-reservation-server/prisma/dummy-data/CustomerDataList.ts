@@ -4,60 +4,61 @@
  * @author  Shevan
  * @file    CustomerData
  */
-import { UserType } from '@prisma/client';
+
+import { user_type } from '@prisma/client';
 
 export const CustomerDataList = [
   {
-    Person: {
+    person: {
       create: {
-        firstName: 'Shevan',
-        lastName: 'Fernando',
+        first_name: 'Shevan',
+        last_name: 'Fernando',
         email: 'w.k.b.s.t.fernando@gmail.com',
-        phoneNumber: '0123456789',
+        phone_number: '0123456789',
         nic: '128975931V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'shevan',
         password: '12345',
-        userType: UserType.CUSTOMER,
+        user_type: user_type.CUSTOMER,
       },
     },
   },
   {
-    Person: {
+    person: {
       create: {
-        firstName: 'Hirushan',
-        lastName: 'Fernando',
+        first_name: 'Hirushan',
+        last_name: 'Fernando',
         email: 'hirushan@gmail.com',
-        phoneNumber: '1234567890',
+        phone_number: '1234567890',
         nic: '994814965V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'hirushan',
         password: '12345',
-        userType: UserType.CUSTOMER,
+        user_type: user_type.CUSTOMER,
       },
     },
   },
   {
-    Person: {
+    person: {
       create: {
-        firstName: 'Bimsara',
-        lastName: 'De Silva',
+        first_name: 'Bimsara',
+        last_name: 'De Silva',
         email: 'bimasara@gmail.com',
-        phoneNumber: '1239677890',
+        phone_number: '1239677890',
         nic: '974814965V',
       },
     },
-    User: {
+    app_user: {
       create: {
         username: 'bimasara',
         password: '12345',
-        userType: UserType.CUSTOMER,
+        user_type: user_type.CUSTOMER,
       },
     },
   },
