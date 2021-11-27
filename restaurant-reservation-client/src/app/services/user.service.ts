@@ -40,36 +40,36 @@ export class UserService {
     userType: UserType;
     staffType?: StaffType;
   }): Observable<void> {
-    if (data.usertype === UserType.CUSTOMER) {
+    if (data.userType === UserType.CUSTOMER) {
       return this.http.post<void>(`${this._API}/customer-registration`, {
         person: {
-          firstName: data.firstName,
-          lastName: data.lastName,
+          first_name: data.firstName,
+          last_name: data.lastName,
           email: data.email,
-          phoneNumber: data.phoneNumber,
+          phone_number: data.phoneNumber,
           nic: data.nic,
         },
         user: {
           username: data.username,
           password: data.password,
-          usertype: data.usertype,
+          user_type: data.userType,
         },
       });
     } else {
       return this.http.post<void>(`${this._API}/staff-registration`, {
         person: {
-          firstName: data.firstName,
-          lastName: data.lastName,
+          first_name: data.firstName,
+          last_name: data.lastName,
           email: data.email,
-          phoneNumber: data.phoneNumber,
+          phone_number: data.phoneNumber,
           nic: data.nic,
         },
         user: {
           username: data.username,
           password: data.password,
-          usertype: data.usertype,
+          user_type: data.userType,
         },
-        stafftype: data.stafftype,
+        staff_type: data.staffType,
       });
     }
   }
