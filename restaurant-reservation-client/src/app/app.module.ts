@@ -7,10 +7,18 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './core/auth/jwt.interceptor';
 import { UnauthorizedInterceptor } from './core/auth/unauthorized.interceptor';
 import { RequestMonitorInterceptor } from './core/request-monitor.interceptor';
+import { PagesModule } from './pages/pages.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    PagesModule,
+    RouterModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
