@@ -18,11 +18,9 @@ This is the 4th-semester group project of our UOM BIT Degree. We decide to build
 
 ## Contributors
 
-Here are all the contributors to our project.
+Here are all the contributors:
 
 - [@Shevan Fernando](https://github.com/shevanfernando)
-- [@Hirushan Fernando](https://github.com/Ferdenat)
-- [@Bimsara De Silva](https://github.com/bimsaradesilva)
 
 ## Clone project <hr>
 
